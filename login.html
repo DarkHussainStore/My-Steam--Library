@@ -5,19 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>تسجيل الدخول</title>
   <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+    }
     body {
+      margin: 0; padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #1e3c72, #2a5298);
-      margin: 0;
-      height: 100vh;
+      color: #fff;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #fff;
       user-select: none;
+      background-image: url('https://cdn.discordapp.com/attachments/1339436496574349404/1374508199587217649/astronaut-on-blooming-planet.960x540.gif?ex=682e4e03&is=682cfc83&hm=ba409f567f7c9ed1cb592b05145136c6a1cc0b07fc50460b926cf9fcfcf99ff6&'); /* صورة خلفية */
+      background-size: cover;
     }
     #loginBox {
-      background: #004d40cc;
+      background: rgba(0, 77, 64, 0.85); /* خلفية شبه شفافة */
       padding: 40px 30px;
       border-radius: 20px;
       box-shadow: 0 0 20px #26a69a88;
@@ -79,9 +85,32 @@
       display: none;
       text-shadow: 0 0 6px #ff4d4d;
     }
+    .welcome-message {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      z-index: 999;
+      background: rgba(0, 77, 64, 0.7);
+      padding: 10px 15px;
+      border-radius: 10px;
+    }
+    .side-message {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      font-size: 1.1rem;
+      color: #fff;
+      font-style: italic;
+      text-shadow: 0 0 8px #000;
+    }
   </style>
 </head>
 <body>
+  <div class="welcome-message">مرحبًا بك في مكتبة الألعاب</div> <!-- رسالة ترحيب -->
+  <div class="side-message">اللهم وفقنا</div> <!-- دعاء جانبي -->
 
   <div id="loginBox" role="main" aria-label="صفحة تسجيل الدخول">
     <h2>تسجيل الدخول</h2>
@@ -132,6 +161,5 @@
       }
     };
   </script>
-
 </body>
 </html>
