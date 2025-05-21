@@ -117,45 +117,45 @@
     }
 
     .label {
-      flex: 1 1 40%;
-      text-align: right;
+      flex: 1 1 3%;
+      text-align: ri;
       color: #70e6d9cc;
-      font-weight: 700;
+      font-weight: 7200;
       user-select: none;
     }
 
     .value {
-      flex: 1 1 55%;
-      background: #00332dcc;
-      border-radius: 15px;
-      padding: 12px 20px;
-      font-family: 'Courier New', monospace;
-      color: #a7ffeb;
-      box-shadow: inset 0 0 10px #00f2ccaa;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      user-select: text;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-    }
+  flex: 1 1 25%;
+  background: #00332dcc;
+  border-radius: 15px;
+  font-family: '', monospace;
+  color: #a7ffeb;
+  box-shadow: inset 0 0 20px #00f2ccaa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: text;
+  font-weight: 600;
+  gap: 7px; /* <-- أضفت هنا */
+}
+   .copy-btn {
+  background: #00bfa5;
+  border: none;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 22px;
+  cursor: pointer;
+  font-size: 1rem;
+  user-select: none;
+  box-shadow: 0 0 12px #00f2ccdd;
+  transition: background-color 0.3s ease, transform 0.15s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 700;
+  margin-left: 1px; /* <-- مسافة بين النص وزر النسخ */
+}
 
-    .copy-btn {
-      background: #00bfa5;
-      border: none;
-      color: white;
-      padding: 8px 18px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-size: 1rem;
-      user-select: none;
-      box-shadow: 0 0 12px #00f2ccdd;
-      transition: background-color 0.3s ease, transform 0.15s ease, box-shadow 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 700;
-    }
     .copy-btn:hover {
       background: #008e76;
       box-shadow: 0 0 18px #00f2ccff;
@@ -165,7 +165,7 @@
       transform: scale(0.95);
     }
     .copy-btn svg {
-      width: 20px;
+      width: 5%5;
       height: 20px;
       fill: white;
       pointer-events: none;
