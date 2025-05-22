@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>إضافة لعبة جديدة</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #e0f2f1;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    form {
+      background: #004d40cc;
+      padding: 20px 30px;
+      border-radius: 20px;
+      width: 320px;
+      box-shadow: 0 0 25px #00bfa5cc;
+    }
+    label,
+    input,
+    select,
+    button {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    label {
+      font-weight: 700;
+    }
+    input,
+    select {
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: none;
+      font-size: 1rem;
+    }
+    button {
+      background: #00bfa5;
+      border: none;
+      padding: 12px 0;
+      font-weight: 900;
+      color: #004d40;
+      font-size: 1.1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 0 16px #00f2ccbb;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background: #007961;
+      color: #a7ffeb;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>أضف لعبة جديدة</h1>
+
+  <form id="addGameForm">
+    <label for="gameName">اسم اللعبة:</label>
+    <input type="text" id="gameName" name="gameName" required />
+
+    <label for="gameImg">رابط صورة اللعبة:</label>
+    <input type="url" id="gameImg" name="gameImg" required />
+
+    <label for="gameType">نوع اللعبة:</label>
+    <select id="gameType" name="gameType" required>
+      <option value="أكشن">أكشن</option>
+      <option value="حرب">حرب</option>
+      <option value="سباق">سباق</option>
+      <option value="مغامرات">مغامرات</option>
+      <option value="ألغاز">ألغاز</option>
+      <option value="استراتيجية">استراتيجية</option>
+    </select>
+
+    <label for="gameUsername">اسم المستخدم:</label>
+    <input type="text" id="gameUsername" name="gameUsername" required />
+
+    <label for="gamePassword">كلمة المرور:</label>
+    <input type="text" id="gamePassword" name="gamePassword" required />
+
+    <button type="submit">إرسال اللعبة</button>
+  </form>
+
+  <script>
+    // إنشاء قناة اتصال مشتركة
+    const channel = new BroadcastChannel('games_channel');
+
+    const form = document.getElementById('addGameForm');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const game = {
+        id: 'game_' + Date.now(),
+        name: form.gameName.value.trim(),
+        img: form.gameImg.value.trim(),
+        type: form.gameType.value,
+        username: form.gameUsername.value.trim(),
+        password: form.gamePassword.value.trim()
+      };
+
+      // إرسال اللعبة إلى جميع الصفحات المفتوحة على نفس القناة
+      channel.postMessage({ action: 'add_game', game });
+
+      alert('تم إضافة اللعبة وإرسالها للصفحة الرئيسية!');
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>
