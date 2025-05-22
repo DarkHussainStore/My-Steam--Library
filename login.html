@@ -9,37 +9,79 @@
     * {
       box-sizing: border-box;
     }
+
+    /* فيديو الخلفية يغطي الشاشة */
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.3) saturate(1.2) contrast(1.1);
+    }
+
     body {
       margin: 0; padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      background: black; /* لون احتياطي */
       color: #fff;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       user-select: none;
-      background-image: url('https://cdn.discordapp.com/attachments/1339436496574349404/1374508199587217649/astronaut-on-blooming-planet.960x540.gif?ex=682e4e03&is=682cfc83&hm=ba409f567f7c9ed1cb592b05145136c6a1cc0b07fc50460b926cf9fcfcf99ff6&'); /* صورة خلفية */
-      background-size: cover;
-      background-position: center;
-      animation: backgroundAnimation 15s infinite alternate;
-      transition: background-position 0.1s ease-out;
+      cursor: none;
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.5s ease-in-out;
     }
 
-    @keyframes backgroundAnimation {
-      0% { background-position: 0 0; }
-      100% { background-position: 100% 100%; }
+    /* مؤشر مخصص */
+    #customCursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background-color: rgba(0, 191, 165, 0.8);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      z-index: 10000;
     }
 
+    /* رسالة الترحيب */
+    .welcome-message {
+      position: absolute;
+      top: 20px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      z-index: 999;
+      background: rgba(0, 77, 64, 0.7);
+      padding: 10px 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    /* التأثيرات على تسجيل الدخول */
     #loginBox {
-      background: rgba(0, 77, 64, 0.85); /* خلفية شبه شفافة */
+      background: linear-gradient(135deg, #004d40, #006954);
       padding: 40px 30px;
       border-radius: 20px;
-      box-shadow: 0 0 20px #26a69a88;
+      box-shadow: 0 0 30px #00bfa5cc;
       width: 320px;
       text-align: center;
       position: relative;
       z-index: 1;
+      color: #e0f2f1;
+      transition: all 0.3s ease;
+      opacity: 0;
+      animation: fadeInUp 1s forwards;
     }
 
     #loginBox h2 {
@@ -47,7 +89,7 @@
       font-weight: 900;
       font-size: 2rem;
       text-shadow: 0 0 8px #00fffacc;
-      color: #fff;
+      color: #b2dfdb;
     }
 
     input[type="email"],
@@ -61,19 +103,15 @@
       font-weight: 600;
       box-sizing: border-box;
       outline: none;
-      transition: box-shadow 0.3s ease;
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
       color: #004d40;
-    }
-
-    input[type="email"]::placeholder,
-    input[type="password"]::placeholder {
-      color: #00897b;
-      font-weight: 400;
+      background-color: #b2dfdbee;
     }
 
     input[type="email"]:focus,
     input[type="password"]:focus {
       box-shadow: 0 0 12px #00fffacc;
+      transform: scale(1.05);
     }
 
     button {
@@ -105,42 +143,58 @@
       text-shadow: 0 0 6px #ff4d4d;
     }
 
-    /* إضافة رسالة ترحيب عائمة */
-    .welcome-message {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #fff;
-      z-index: 999;
-      background: rgba(0, 77, 64, 0.7);
-      padding: 10px 15px;
-      border-radius: 10px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    /* تأثيرات تحريك الحقول */
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #00bfa5;
+      box-shadow: 0 0 15px rgba(0, 191, 165, 0.6);
     }
 
-    /* إضافة دعاء جانبي */
-    .side-message {
-      position: absolute;
-      top: 20px;
-      left: 30px;
-      font-size: 1.1rem;
-      color: #fff;
-      font-style: italic;
-      text-shadow: 0 0 8px #000;
+    /* الرسوم المتحركة */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
 
-    /* تأثيرات انتقالية عند الضغط على الزر */
-    button:focus {
-      outline: none;
-      box-shadow: 0 0 20px #00ffff;
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 5px rgba(0, 191, 165, 0.6);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(0, 191, 165, 1);
+      }
+      100% {
+        box-shadow: 0 0 5px rgba(0, 191, 165, 0.6);
+      }
     }
 
   </style>
 </head>
 <body>
-  <div class="welcome-message">مرحبًا بك في مكتبة الألعاب</div> <!-- رسالة ترحيب -->
+  <!-- فيديو الخلفية -->
+  <video autoplay muted loop playsinline id="bgVideo" aria-hidden="true" tabindex="-1">
+    <source src="https://cdn.videvo.net/videvo_files/video/free/2013-08/small_watermarked/blue_background_preview.webm" type="video/webm" />
+    <source src="https://cdn.discordapp.com/attachments/1339436496574349404/1374507188868874330/astronaut-on-blooming-planet.960x540.mp4?ex=682f9e92&is=682e4d12&hm=7090d2360168de171b4fff438d115c86b836ebf32d74b2f2e1481f702fbdcfe6&" type="video/mp4" />
+    <!-- رابط فيديو احتياطي -->
+    متصفحك لا يدعم تشغيل الفيديو.
+  </video>
+
+  <div class="welcome-message">مرحبًا بك في مكتبة الألعاب</div>
 
   <div id="loginBox" role="main" aria-label="صفحة تسجيل الدخول">
     <h2>تسجيل الدخول</h2>
@@ -150,15 +204,9 @@
     <div id="errorMsg" role="alert" aria-live="assertive"></div>
   </div>
 
-  <script>
-    // حركة خلفية مع الماوس يمين ويسار
-    document.addEventListener('mousemove', (e) => {
-      const xRatio = e.clientX / window.innerWidth; // نسبة أفقية 0-1
-      const maxShift = 20; // أقصى تحرك للنسبة المئوية
-      const shiftX = (xRatio - 0.5) * 2 * maxShift; // بين -20 و +20
-      document.body.style.backgroundPosition = `${50 + shiftX}% center`;
-    });
+  <div id="customCursor"></div>
 
+  <script>
     // بيانات حسابات مسموح لها (إضافة وإزالة حسب حاجتك)
     const allowedUsers = [
       { email: "user1@example.com", password: "pass1234" },
@@ -198,6 +246,13 @@
         window.location.href = "index.html";
       }
     };
+
+    // تحريك المؤشر الدائري مع حركة الماوس
+    const customCursor = document.getElementById('customCursor');
+    window.addEventListener('mousemove', e => {
+      customCursor.style.left = e.clientX + 'px';
+      customCursor.style.top = e.clientY + 'px';
+    });
   </script>
 </body>
 </html>
