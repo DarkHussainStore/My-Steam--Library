@@ -6,7 +6,7 @@
   <title>مكتبة STEAM</title>
   <style>
     /* Reset */
-    * {
+    *, *::before, *::after {
       box-sizing: border-box;
     }
     body {
@@ -19,194 +19,254 @@
       flex-direction: column;
       align-items: center;
       user-select: none;
+      scroll-behavior: smooth;
+      transition: background-color 0.5s ease-in-out;
     }
-    /* الشريط العلوي */
-    #topBar {
+
+    /* شريط القائمة الرئيسي */
+    #mainNav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      height: 55px;
+      height: 48px;
+      background: #004d40;
+      box-shadow: 0 4px 15px rgba(0, 191, 165, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 12000;
+      font-weight: 700;
+      font-size: 1.1rem;
+      user-select: none;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #mainNav ul {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+      margin: 0;
+      padding: 0;
+    }
+    #mainNav ul li a {
+      color: #a7ffebcc;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      user-select: none;
+      box-shadow: 0 0 5px transparent;
+      font-family: 'Cairo', sans-serif;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    #mainNav ul li a:hover,
+    #mainNav ul li a:focus {
+      background-color: #00bfa5;
+      color: #004d40;
+      box-shadow: 0 0 12px #00f2ccdd;
+      outline: none;
+      transform: scale(1.1) rotate(3deg);
+      cursor: pointer;
+    }
+
+    /* شريط المستخدم */
+    #topBar {
+      position: fixed;
+      top: 48px;
+      left: 0; right: 0;
+      height: 60px;
       background: linear-gradient(90deg, #00bfa5, #004d40);
-      box-shadow: 0 4px 15px rgba(0, 77, 64, 0.9);
+      box-shadow: 0 5px 18px rgba(0, 77, 64, 0.9);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 25px;
+      padding: 0 30px;
       color: #e0f2f1;
       font-weight: 700;
-      font-size: 1.1rem;
-      z-index: 10000;
+      font-size: 1.15rem;
+      z-index: 11000;
       user-select: none;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      font-family: 'Cairo', sans-serif;
+      transition: box-shadow 0.3s ease;
     }
+
     #topBar .siteTitle {
-      letter-spacing: 0.08em;
-      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      font-size: 1.5rem;
       user-select: none;
+      text-shadow: 0 0 8px #00f2ccbb;
     }
+
     #topBar .userSection {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 18px;
     }
+
     #topBar .usernameDisplay {
       background: #00796bdd;
-      padding: 6px 16px;
-      border-radius: 20px;
+      padding: 8px 20px;
+      border-radius: 24px;
       font-family: 'Courier New', monospace;
       user-select: text;
-      max-width: 200px;
+      max-width: 220px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      box-shadow: 0 0 12px #00f2ccaa inset;
+      font-weight: 700;
     }
+
     #logoutBtn {
       background: #004d40;
       border: none;
-      padding: 6px 16px;
-      border-radius: 20px;
+      padding: 8px 20px;
+      border-radius: 24px;
       color: #a7ffeb;
       cursor: pointer;
-      font-weight: 800;
-      box-shadow: 0 0 8px #00bfa5bb;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      font-weight: 900;
+      box-shadow: 0 0 10px #00bfa5bb;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
       user-select: none;
+      font-family: 'Cairo', sans-serif;
     }
     #logoutBtn:hover {
       background-color: #00bfa5;
       color: #004d40;
-      box-shadow: 0 0 12px #00f2cccc;
+      box-shadow: 0 0 16px #00f2ccff;
+      transform: scale(1.05);
     }
 
-    /* تباعد المحتوى عن الشريط العلوي */
+    /* تباعد المحتوى عن الشرائط الثابتة */
     #mainContainer, header, #searchInput {
-      margin-top: 65px;
+      margin-top: 120px; /* ارتفاع الشرائط + مسافة */
       width: 90%;
       max-width: 1200px;
+      transition: margin-top 0.3s ease;
     }
 
     header {
-      font-size: 2.8rem;
+      font-size: 3rem;
       font-weight: 900;
-      margin-bottom: 20px;
-      text-shadow: 0 0 15px #26a69a;
-      letter-spacing: 0.07em;
+      margin-bottom: 28px;
+      text-shadow: 0 0 20px #26a69a;
+      letter-spacing: 0.08em;
       user-select: none;
       text-align: center;
+      font-family: 'Cairo', sans-serif;
+      transition: transform 0.5s ease-in-out;
+    }
+    header:hover {
+      transform: scale(1.05) rotate(2deg);
     }
 
     /* الحاوية الرئيسية */
     #mainContainer {
       display: flex;
-      gap: 25px;
-      margin-bottom: 60px;
-      min-height: 70vh;
+      gap: 28px;
+      margin-bottom: 70px;
+      min-height: 75vh;
+      transition: all 0.3s ease;
     }
 
     /* الشريط الجانبي للفلاتر */
     #filtersPanel {
-      flex: 0 0 220px;
-      background: #00000033;
-      border-radius: 20px;
-      padding: 25px 20px;
-      box-shadow: 0 0 30px #00000088 inset;
-      color: #a7ffebcc;
+      flex: 0 0 240px;
+      background: #00000044;
+      border-radius: 22px;
+      padding: 28px 22px;
+      box-shadow: 0 0 36px #000000aa inset;
+      color: #a7ffebdd;
       user-select: none;
+      font-family: 'Cairo', sans-serif;
+      transition: box-shadow 0.3s ease, transform 0.5s ease;
     }
-    #filtersPanel h2 {
-      margin-top: 0;
-      font-weight: 900;
-      font-size: 1.6rem;
-      margin-bottom: 20px;
-      text-align: center;
-      letter-spacing: 0.04em;
-    }
-    #filtersPanel label {
-      display: block;
-      margin-bottom: 14px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: color 0.25s ease;
-      user-select: none;
-    }
-    #filtersPanel label:hover {
-      color: #00f2cc;
-    }
-    #filtersPanel input[type="checkbox"] {
-      margin-left: 10px;
-      cursor: pointer;
-      width: 20px;
-      height: 20px;
-      vertical-align: middle;
-      accent-color: #00bfa5;
+    #filtersPanel:hover {
+      box-shadow: 0 0 50px #00f2ccdd inset;
+      transform: translateX(5px);
     }
 
     /* الحاوية للبطاقات */
     .cards-container {
       flex-grow: 1;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 28px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 32px;
       user-select: none;
-      perspective: 1200px;
+      perspective: 1300px;
+      transition: all 0.3s ease;
     }
 
     /* تصميم البطاقات */
     .card {
-      background: linear-gradient(145deg, #004d4033, #00241e77);
-      border-radius: 24px;
+      background: linear-gradient(145deg, #004d4044, #00241e88);
+      border-radius: 28px;
       box-shadow:
-        0 8px 24px rgba(0, 255, 230, 0.6),
-        inset 0 0 15px #00f2cc99;
+        0 10px 28px rgba(0, 255, 230, 0.7),
+        inset 0 0 20px #00f2ccbb;
       cursor: pointer;
       overflow: hidden;
       transition:
-        transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
-        box-shadow 0.35s ease,
-        background-color 0.35s ease;
+        transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+        box-shadow 0.4s ease,
+        background-color 0.4s ease;
       display: flex;
       flex-direction: column;
       user-select: none;
       will-change: transform;
       outline-offset: 6px;
-      color: #a7ffeb;
+      color: #a7ffebee;
+      font-family: 'Cairo', sans-serif;
+      transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
+
     .card:hover,
     .card:focus-visible {
-      transform: translateY(-16px) rotateX(5deg) rotateY(7deg) scale(1.07);
+      transform: translateY(-18px) rotateX(6deg) rotateY(8deg) scale(1.1);
       box-shadow:
-        0 30px 60px rgba(0, 255, 230, 0.9),
-        inset 0 0 30px #00f2cccc;
-      outline: 3px solid #00f2cccc;
-      outline-offset: 4px;
-      background: linear-gradient(145deg, #004d40ee, #008e76ee);
-      color: #d1fff7;
+        0 38px 72px rgba(0, 255, 230, 1),
+        inset 0 0 38px #00f2ccdd;
+      outline: 4px solid #00f2ccdd;
+      outline-offset: 5px;
+      background: linear-gradient(145deg, #005d40ee, #009e76ee);
+      color: #d4fff9;
     }
+
     .card img {
       width: 100%;
-      height: 160px;
+      height: 180px;
       object-fit: cover;
-      border-bottom: 4px solid #00bfa533;
-      transition: transform 0.3s ease, filter 0.3s ease;
+      border-bottom: 5px solid #00bfa577;
+      transition: transform 0.35s ease, filter 0.35s ease;
       user-select: none;
+      border-top-left-radius: 28px;
+      border-top-right-radius: 28px;
     }
+
     .card:hover img,
     .card:focus-visible img {
-      transform: scale(1.05);
-      filter: drop-shadow(0 0 16px #00f2ccbb);
+      transform: scale(1.07);
+      filter: drop-shadow(0 0 18px #00f2ccdd);
     }
+
     .card h3 {
-      margin: 16px 16px 4px;
+      margin: 18px 20px 8px;
       font-weight: 900;
-      font-size: 1.5rem;
+      font-size: 1.7rem;
       text-align: center;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
     }
+
     .card .game-type {
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 600;
       text-align: center;
-      margin-bottom: 14px;
+      margin-bottom: 20px;
       color: #70e6d9cc;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.025em;
       font-style: italic;
     }
 
@@ -217,57 +277,73 @@
 
     /* بحث علوي */
     #searchInput {
-      margin: 0 auto 25px auto;
+      margin: 0 auto 30px auto;
       width: 90%;
-      max-width: 400px;
-      padding: 14px 18px;
-      font-size: 1.2rem;
-      border-radius: 40px;
+      max-width: 460px;
+      padding: 16px 22px;
+      font-size: 1.35rem;
+      border-radius: 50px;
       border: none;
-      box-shadow: 0 0 20px #00bfa5aa inset;
+      box-shadow: 0 0 24px #00bfa5cc inset;
       color: #004d40;
-      font-weight: 700;
-      letter-spacing: 0.02em;
+      font-weight: 800;
+      letter-spacing: 0.03em;
       user-select: text;
-      transition: box-shadow 0.3s ease;
+      font-family: 'Cairo', sans-serif;
+      transition: box-shadow 0.35s ease;
     }
     #searchInput::placeholder {
       color: #00bfa599;
-      font-weight: 600;
+      font-weight: 700;
       font-style: italic;
     }
     #searchInput:focus {
       outline: none;
-      box-shadow: 0 0 30px #00f2ccff inset;
+      box-shadow: 0 0 40px #00f2ccff inset;
       color: #00261a;
     }
 
     /* استجابة الهواتف */
-    @media (max-width: 850px) {
+    @media (max-width: 950px) {
       #mainContainer {
         flex-direction: column;
       }
       #filtersPanel {
         width: 100%;
-        margin-bottom: 20px;
-        border-radius: 20px;
+        margin-bottom: 25px;
+        border-radius: 24px;
       }
       .cards-container {
         grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
         width: 100%;
       }
     }
-    @media (max-width: 450px) {
+
+    @media (max-width: 500px) {
       .card h3 {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
       }
       .card .game-type {
-        font-size: 0.9rem;
+        font-size: 1rem;
+      }
+      #searchInput {
+        max-width: 100%;
+        font-size: 1.2rem;
+        padding: 14px 18px;
       }
     }
   </style>
 </head>
 <body>
+
+<div id="mainNav" role="navigation" aria-label="القائمة الرئيسية">
+  <ul>
+    <li><a href="index.html">الرئيسية</a></li>
+    <li><a href="index.html">المكتبة</a></li>
+    <li><a href="index.html">حول</a></li>
+    <li><a href="index.html">اتصل بنا</a></li>
+  </ul>
+</div>
 
 <div id="topBar" role="banner" aria-label="شريط معلومات المستخدم">
   <div class="siteTitle" aria-label="عنوان الموقع">مكتبة STEAM</div>
@@ -294,7 +370,7 @@
   </aside>
 
   <section class="cards-container" id="gamesContainer" aria-label="قائمة الألعاب">
-    <!-- البطاقات ستُولد بواسطة الجافاسكريبت -->
+    <!-- الألعاب سيتم إضافتها هنا بواسطة جافا سكريبت -->
   </section>
 
 </div>
@@ -340,56 +416,7 @@
       username: 'mingxiangkulian',
       password: 'KOsa0z74FcL62jW',
       type: 'استراتيجية'
-    },
-    {
-      id: 'game6',
-      name: 'Resident Evil 4',
-      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1374563135414861824/resident-evil-4.jpg?ex=682e812d&is=682d2fad&hm=c9786cae964737aa7a4fb8d24a00c653c02bd8b49a696b083e72b550751b5a2b&',
-      username: 'charles_3612x',
-      password: '4chxBWBpMnf',
-      type: 'ألغاز'
-    },
-
-
-
-    {
-      id: 'game7',
-      name: 'Ark Survival Evolved ',
-      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1374570745937662064/ark-survival-evolved-1024x576.jpg?ex=682e8844&is=682d36c4&hm=70643de085ac3bde044418aadfe74588fa01af2ceca3111c01de7f9b26dc0951&',
-      username: 'minhboang',
-      password: 'minhhaha11',
-      type: 'مغامرات'
-    },
-
-    {
-      id: 'game8',
-      name: 'Forza Horizon 5',
-      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1374574548753842196/11.png?ex=682e8bce&is=682d3a4e&hm=dfd9f748b9ef865d7cf9fb5f7dd0b4d4710780e999c1b92e96c017b478a12caa&',
-      username: 'bej01201',
-      password: 'Bejdw11201',
-      type: 'سباق'
-    },
-
-
-    {
-      id: 'game9',
-      name: 'soon Ev',
-      img: 'https://3.discordapp.com/attachments/5/1374563135414861824/resident-evil-4.jpg?ex=682e812d&is=682d2fad&hm=c9786cae964737aa7a4fb8d24a00c653c02bd8b49a696b083e72b550751b5a2b&',
-      username: '0000',
-      password: '0000',
-      type: ''
-    },
-
-    {
-      id: 'game10',
-      name: 'soon Ev',
-      img: 'https://3.discordapp.com/attachments/5/1374563135414861824/resident-evil-4.jpg?ex=682e812d&is=682d2fad&hm=c9786cae964737aa7a4fb8d24a00c653c02bd8b49a696b083e72b550751b5a2b&',
-      username: '0000',
-      password: '0000',
-      type: ''
-    },
-
-
+    }
   ];
 
   const container = document.getElementById('gamesContainer');
@@ -406,8 +433,11 @@
   const logoutBtn = document.getElementById('logoutBtn');
   logoutBtn.addEventListener('click', () => {
     sessionStorage.removeItem('loggedInUser');
-    window.location.href = 'login.html'; // أو الصفحة التي تريد العودة إليها بعد الخروج
+    window.location.href = 'login.html';
   });
+
+  // تنفيذ فحص أولي عند تحميل الصفحة
+  window.dispatchEvent(new Event('scroll'));
 
   function renderGames(filteredGames) {
     container.innerHTML = '';
@@ -448,7 +478,6 @@
   // فلترة الألعاب حسب البحث والفلاتر
   function filterGames() {
     const searchTerm = searchInput.value.trim().toLowerCase();
-    // جمع الفلاتر المحددة
     const activeTypes = Array.from(filterCheckboxes)
       .filter(chk => chk.checked)
       .map(chk => chk.value);
@@ -462,12 +491,11 @@
     renderGames(filtered);
   }
 
-  // ربط الأحداث
   searchInput.addEventListener('input', filterGames);
   filterCheckboxes.forEach(chk => chk.addEventListener('change', filterGames));
 
-  // عرض كل الألعاب عند البداية
   renderGames(games);
 </script>
+
 </body>
 </html>
