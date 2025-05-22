@@ -3,530 +3,273 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>مكتبة STEAM</title>
+  <title>تفاصيل اللعبة - مكتبة STEAM</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap');
+
     /* Reset */
-    *, *::before, *::after {
+    * {
       box-sizing: border-box;
     }
+
     body {
       margin: 0; padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: #e0f2f1;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      display: flex; 
+      flex-direction: column; 
       align-items: center;
       user-select: none;
-      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       transition: background-color 0.5s ease-in-out;
-      position: relative;
-      overflow-x: hidden;
-    }
-    /* وضع النهاري */
-    body.light {
-      background: linear-gradient(135deg, #a7ffeb, #70e6d9, #004d40);
-      color: #004d40;
-    }
-    body.light #mainNav {
-      background: #a7ffeb;
-      box-shadow: 0 4px 15px rgba(0, 191, 165, 0.9);
-    }
-    body.light #topBar {
-      background: linear-gradient(90deg, #004d40, #70e6d9);
-      color: #004d40;
-    }
-    body.light .card {
-      background: linear-gradient(145deg, #b2dfdbee, #80cbc4ee);
-      color: #004d40;
-      box-shadow:
-        0 10px 28px rgba(0, 191, 165, 0.7),
-        inset 0 0 20px #009688bb;
-    }
-    body.light .card:hover,
-    body.light .card:focus-visible {
-      background: linear-gradient(145deg, #004d4066, #009688cc);
-      color: #e0f2f1;
-      box-shadow:
-        0 38px 72px rgba(0, 150, 136, 1),
-        inset 0 0 38px #009688dd;
     }
 
-    /* فيديو الخلفية */
-    #bgVideo {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -1;
-      filter: brightness(0.5) saturate(1.1);
-      pointer-events: none;
-      animation: bgVideoAnim 30s linear infinite alternate;
-    }
-    @keyframes bgVideoAnim {
-      0% { filter: brightness(0.5) saturate(1.1) contrast(1);}
-      50% { filter: brightness(0.6) saturate(1.3) contrast(1.1);}
-      100% { filter: brightness(0.5) saturate(1.1) contrast(1);}
-    }
-
-    /* القائمة الرئيسية */
-    #mainNav {
+    /* القائمة العلوية العليا */
+    #navBar {
       position: fixed;
       top: 0; left: 0; right: 0;
-      height: 48px;
-      background: #004d40;
-      box-shadow: 0 4px 15px rgba(0, 191, 165, 0.7);
+      height: 40px;
+      background: #004d4033;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      z-index: 12000;
-      font-weight: 700;
-      font-size: 1.1rem;
+      gap: 30px;
+      padding: 0 30px;
+      font-size: 1rem;
+      color: #a7ffebcc;
+      z-index: 11000;
       user-select: none;
-      border-bottom-left-radius: 0px;
-      border-bottom-right-radius: 0px;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,77,64,0.6);
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.3s ease;
     }
-    #mainNav ul {
-      list-style: none;
-      display: flex;
-      gap: 32px;
-      margin: 0;
-      padding: 0;
-    }
-    #mainNav ul li a {
+    #navBar a {
       color: #a7ffebcc;
       text-decoration: none;
-      padding: 8px 16px;
+      padding: 5px 10px;
       border-radius: 8px;
-      user-select: none;
-      box-shadow: 0 0 5px transparent;
-      font-family: 'Cairo', sans-serif;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-    #mainNav ul li a:hover,
-    #mainNav ul li a:focus {
-      background-color: #00bfa5;
-      color: #004d40;
-      box-shadow: 0 0 12px #00f2ccdd;
-      outline: none;
-      transform: scale(1.1) rotate(3deg);
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
       cursor: pointer;
     }
+    #navBar a:hover,
+    #navBar a:focus {
+      background-color: #00bfa5dd;
+      color: #004d40;
+      outline: none;
+      transform: scale(1.1) rotate(3deg);
+    }
 
-    /* شريط المستخدم */
+    /* شريط علوي */
     #topBar {
       position: fixed;
-      top: 48px;
-      left: 0; right: 0;
-      height: 60px;
+      top: 40px; left: 0; right: 0;
+      height: 55px;
       background: linear-gradient(90deg, #00bfa5, #004d40);
-      box-shadow: 0 5px 18px rgba(0, 77, 64, 0.9);
+      box-shadow: 0 4px 15px rgba(0, 77, 64, 0.9);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 30px;
+      padding: 0 25px;
       color: #e0f2f1;
       font-weight: 700;
-      font-size: 1.15rem;
-      z-index: 11000;
+      font-size: 1.1rem;
+      z-index: 10000;
       user-select: none;
-      border-bottom-left-radius: 12px;
-      border-bottom-right-radius: 12px;
-      font-family: 'Cairo', sans-serif;
-      transition: box-shadow 0.3s ease;
+      transition: transform 0.5s ease, background-color 0.3s ease;
     }
     #topBar .siteTitle {
-      letter-spacing: 0.1em;
-      font-size: 1.5rem;
-      user-select: none;
-      text-shadow: 0 0 8px #00f2ccbb;
+      letter-spacing: 0.08em;
+      font-size: 1.4rem;
     }
     #topBar .userSection {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 15px;
     }
     #topBar .usernameDisplay {
       background: #00796bdd;
-      padding: 8px 20px;
-      border-radius: 24px;
+      padding: 6px 16px;
+      border-radius: 20px;
       font-family: 'Courier New', monospace;
       user-select: text;
-      max-width: 220px;
+      max-width: 200px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      box-shadow: 0 0 12px #00f2ccaa inset;
-      font-weight: 700;
     }
     #logoutBtn {
       background: #004d40;
       border: none;
-      padding: 8px 20px;
-      border-radius: 24px;
+      padding: 6px 16px;
+      border-radius: 20px;
       color: #a7ffeb;
       cursor: pointer;
-      font-weight: 900;
-      box-shadow: 0 0 10px #00bfa5bb;
+      font-weight: 800;
+      box-shadow: 0 0 8px #00bfa5bb;
       transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
       user-select: none;
-      font-family: 'Cairo', sans-serif;
     }
     #logoutBtn:hover {
       background-color: #00bfa5;
       color: #004d40;
-      box-shadow: 0 0 16px #00f2ccff;
+      box-shadow: 0 0 12px #00f2cccc;
       transform: scale(1.05);
     }
 
-    /* زر تبديل الوضع الليلي */
-    #toggleTheme {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 15000;
-      padding: 10px 20px;
-      border-radius: 20px;
-      background: #00bfa5;
-      color: #004d40;
-      font-weight: 700;
-      cursor: pointer;
-      user-select: none;
-      border: none;
-      font-family: 'Cairo', sans-serif;
-      box-shadow: 0 0 12px #00f2ccbb;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    #toggleTheme:hover {
-      background-color: #004d40;
+    /* تباعد المحتوى عن الشريط العلوي */
+    main {
+      margin-top: 100px;
+      background: linear-gradient(145deg, #004d4033, #00241e77);
+      padding: 40px 50px;
+      border-radius: 30px;
+      box-shadow: 0 15px 35px rgba(0, 77, 64, 0.4),
+                  inset 0 0 50px #00f2ccaa;
+      max-width: 480px;
+      width: 90%;
       color: #a7ffeb;
-    }
-
-    /* تباعد المحتوى عن الشرائط الثابتة */
-    #mainContainer, header, #searchInput {
-      margin-top: 120px;
-      width: 90%;
-      max-width: 1200px;
-      transition: margin-top 0.3s ease;
-    }
-    header {
-      font-size: 3rem;
-      font-weight: 900;
-      margin-bottom: 28px;
-      text-shadow: 0 0 20px #26a69a;
-      letter-spacing: 0.08em;
-      user-select: none;
-      text-align: center;
-      font-family: 'Cairo', sans-serif;
-      transition: transform 0.5s ease-in-out;
-    }
-    header:hover {
-      transform: scale(1.05) rotate(2deg);
-    }
-
-    /* الحاوية الرئيسية */
-    #mainContainer {
-      display: flex;
-      gap: 28px;
-      margin-bottom: 70px;
-      min-height: 75vh;
-      transition: all 0.3s ease;
-    }
-
-    /* الشريط الجانبي للفلاتر */
-    #filtersPanel {
-      flex: 0 0 240px;
-      background: #00000044;
-      border-radius: 22px;
-      padding: 28px 22px;
-      box-shadow: 0 0 36px #000000aa inset;
-      color: #a7ffebdd;
-      user-select: none;
-      font-family: 'Cairo', sans-serif;
-      transition: box-shadow 0.3s ease, transform 0.5s ease;
-    }
-    #filtersPanel:hover {
-      box-shadow: 0 0 50px #00f2ccdd inset;
-      transform: translateX(5px);
-    }
-
-    /* الحاوية للبطاقات */
-    .cards-container {
-      flex-grow: 1;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 32px;
-      user-select: none;
-      perspective: 1300px;
-      transition: all 0.3s ease;
-    }
-
-    /* تصميم البطاقات */
-    .card {
-      background: linear-gradient(145deg, #004d4044, #00241e88);
-      border-radius: 28px;
-      box-shadow:
-        0 10px 28px rgba(0, 255, 230, 0.7),
-        inset 0 0 20px #00f2ccbb;
-      cursor: pointer;
-      overflow: hidden;
-      transition:
-        transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-        box-shadow 0.4s ease,
-        background-color 0.4s ease;
-      display: flex;
-      flex-direction: column;
-      user-select: none;
-      will-change: transform;
-      outline-offset: 6px;
-      color: #a7ffebee;
-      font-family: 'Cairo', sans-serif;
-    }
-    .card:hover,
-    .card:focus-visible {
-      transform: translateY(-18px) rotateX(6deg) rotateY(8deg) scale(1.1);
-      box-shadow:
-        0 38px 72px rgba(0, 255, 230, 1),
-        inset 0 0 38px #00f2ccdd;
-      outline: 4px solid #00f2ccdd;
-      outline-offset: 5px;
-      background: linear-gradient(145deg, #005d40ee, #009e76ee);
-      color: #d4fff9;
-    }
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-bottom: 5px solid #00bfa577;
-      transition: transform 0.35s ease, filter 0.35s ease;
-      user-select: none;
-      border-top-left-radius: 28px;
-      border-top-right-radius: 28px;
-    }
-    .card:hover img,
-    .card:focus-visible img {
-      transform: scale(1.07);
-      filter: drop-shadow(0 0 18px #00f2ccdd);
-    }
-    .card h3 {
-      margin: 18px 20px 8px;
-      font-weight: 900;
-      font-size: 1.7rem;
-      text-align: center;
-      letter-spacing: 0.05em;
-    }
-    .card .game-type {
-      font-size: 1.1rem;
-      font-weight: 600;
-      text-align: center;
-      margin-bottom: 20px;
-      color: #70e6d9cc;
-      letter-spacing: 0.025em;
-      font-style: italic;
-    }
-    /* التركيز بالكيبورد */
-    .card:focus-visible {
-      outline: none;
-    }
-    /* بحث علوي */
-    #searchInput {
-      margin: 0 auto 30px auto;
-      width: 90%;
-      max-width: 460px;
-      padding: 16px 22px;
-      font-size: 1.35rem;
-      border-radius: 50px;
-      border: none;
-      box-shadow: 0 0 24px #00bfa5cc inset;
-      color: #004d40;
-      font-weight: 800;
-      letter-spacing: 0.03em;
       user-select: text;
-      font-family: 'Cairo', sans-serif;
-      transition: box-shadow 0.35s ease;
-    }
-    #searchInput::placeholder {
-      color: #00bfa599;
-      font-weight: 700;
-      font-style: italic;
-    }
-    #searchInput:focus {
-      outline: none;
-      box-shadow: 0 0 40px #00f2ccff inset;
-      color: #00261a;
-    }
-    /* استجابة الهواتف */
-    @media (max-width: 950px) {
-      #mainContainer {
-        flex-direction: column;
-      }
-      #filtersPanel {
-        width: 100%;
-        margin-bottom: 25px;
-        border-radius: 24px;
-      }
-      .cards-container {
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        width: 100%;
-      }
-    }
-    @media (max-width: 500px) {
-      .card h3 {
-        font-size: 1.3rem;
-      }
-      .card .game-type {
-        font-size: 1rem;
-      }
-      #searchInput {
-        max-width: 100%;
-        font-size: 1.2rem;
-        padding: 14px 18px;
-      }
+      font-weight: 600;
+      font-size: 1.2rem;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
     }
 
-    /* Modal للعبة */
-    #gameModal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(6px);
-      z-index: 20000;
-      justify-content: center;
-      align-items: center;
+    h1 {
+      margin-top: 0;
+      font-size: 2.6rem;
+      font-weight: 900;
+      margin-bottom: 40px;
+      text-shadow: 0 0 20px #00f2ccaa;
+      letter-spacing: 0.06em;
+      transition: transform 0.3s ease, color 0.3s ease;
     }
-    #gameModal[aria-hidden="false"] {
-      display: flex;
-    }
-    #gameModal > div {
-      background: #004d40;
-      border-radius: 20px;
-      max-width: 400px;
-      width: 90%;
-      padding: 30px;
-      color: #a7ffeb;
-      font-family: 'Cairo', sans-serif;
-      position: relative;
-      box-shadow: 0 0 30px #00f2cccc;
-    }
-    #modalCloseBtn {
-      position: absolute;
-      top: 10px; right: 15px;
-      background: none;
-      border: none;
-      font-size: 1.8rem;
-      color: #00f2cc;
-      cursor: pointer;
-    }
-    #modalCloseBtn:hover {
+    h1:hover {
+      transform: scale(1.1) rotate(3deg);
       color: #00bfa5;
     }
-    #gameModal img {
-      width: 100%;
-      border-radius: 15px;
-      margin-bottom: 20px;
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      font-size: 1.3rem;
+      letter-spacing: 0.03em;
+      transition: transform 0.3s ease, background-color 0.3s ease;
     }
-    #gameModal p {
-      margin: 6px 0;
-      font-size: 1.1rem;
-    }
-    #gameModal button.copyBtn {
-      background: #00bfa5;
-      border: none;
-      color: #004d40;
-      padding: 3px 8px;
-      border-radius: 8px;
-      margin-left: 8px;
-      cursor: pointer;
-      font-weight: 700;
-      transition: background-color 0.3s ease;
-      user-select: none;
-    }
-    #gameModal button.copyBtn:hover {
-      background-color: #004d40;
-      color: #a7ffeb;
+    .info-row:hover {
+      background-color: #00332d;
+      transform: translateX(10px);
     }
 
-    /* مودال تأكيد تسجيل الخروج */
-    #logoutConfirmModal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(4px);
-      z-index: 25000;
-      justify-content: center;
-      align-items: center;
+    .label {
+      flex: 1 1 3%;
+      text-align: right;
+      color: #70e6d9cc;
+      font-weight: 700;
+      user-select: none;
     }
-    #logoutConfirmModal[aria-hidden="false"] {
+
+    .value {
+      flex: 1 1 25%;
+      background: #00332dcc;
+      border-radius: 15px;
+      font-family: 'Courier New', monospace;
+      color: #a7ffeb;
+      box-shadow: inset 0 0 20px #00f2ccaa;
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: text;
+      font-weight: 600;
+      gap: 7px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
     }
-    #logoutConfirmModal > div {
-      background:#004d40;
-      color:#a7ffeb;
-      padding:30px;
-      border-radius:20px;
-      max-width:320px;
-      width:90%;
-      text-align:center;
-      font-family:'Cairo', sans-serif;
-      box-shadow: 0 0 30px #00f2cccc;
+
+    .copy-btn {
+      background: #00bfa5;
+      border: none;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 22px;
+      cursor: pointer;
+      font-size: 1rem;
+      user-select: none;
+      box-shadow: 0 0 12px #00f2ccdd;
+      transition: background-color 0.3s ease, transform 0.15s ease, box-shadow 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 700;
+      margin-left: 1px;
     }
-    #logoutConfirmModal h2 {
-      margin-bottom: 20px;
+    .copy-btn:hover {
+      background: #008e76;
+      box-shadow: 0 0 18px #00f2ccff;
+      transform: scale(1.12);
     }
-    #logoutConfirmModal button {
-      cursor:pointer;
-      font-weight:700;
-      border-radius:12px;
-      padding:10px 20px;
-      font-family:'Cairo', sans-serif;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      margin: 0 10px;
-      border:none;
+    .copy-btn:active {
+      transform: scale(0.95);
     }
-    #confirmLogoutBtn {
-      background:#00bfa5;
-      color:#004d40;
+
+    #copyMessage {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #00bfa5cc;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: 900;
+      font-size: 1.2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      user-select: none;
+      z-index: 9999;
+      box-shadow: 0 0 15px #00f2cccc;
+      text-shadow: 0 0 6px #004d4099;
     }
-    #confirmLogoutBtn:hover {
-      background:#004d40;
-      color:#a7ffeb;
+
+    #backBtn {
+      margin: 50px auto 60px;
+      display: block;
+      background: linear-gradient(135deg, #00bfa5, #004d40);
+      border: none;
+      color: white;
+      padding: 16px 40px;
+      font-size: 1.3rem;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 30px #00bfa5cc;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      user-select: none;
+      font-weight: 700;
+      text-shadow: 0 0 12px #00f2ccbb;
     }
-    #cancelLogoutBtn {
-      background:#004d40;
-      color:#a7ffeb;
-      border:2px solid #00bfa5;
+
+    #backBtn:hover {
+      background: linear-gradient(135deg, #004d40, #00bfa5);
+      box-shadow: 0 12px 40px #00f2cccc;
+      transform: scale(1.1);
     }
-    #cancelLogoutBtn:hover {
-      background:#00bfa5;
-      color:#004d40;
-      border:none;
+    #backBtn:active {
+      transform: scale(0.95);
     }
   </style>
 </head>
 <body>
 
-<!-- فيديو الخلفية -->
-<video autoplay muted loop playsinline id="bgVideo" aria-hidden="true" tabindex="-1">
-  <source src="https://cdn.videvo.net/videvo_files/video/free/2013-08/small_watermarked/blue_background_preview.webm" type="video/webm" />
-  <source src="https://cdn.discordapp.com/attachments/1339436496574349404/1374507188868874330/astronaut-on-blooming-planet.960x540.mp4?ex=682f9e92&is=682e4d12&hm=7090d2360168de171b4fff438d115c86b836ebf32d74b2f2e1481f702fbdcfe6&" type="video/mp4" />
-  متصفحك لا يدعم تشغيل الفيديو.
-</video>
-
-<div id="mainNav" role="navigation" aria-label="القائمة الرئيسية">
-  <ul>
-    <li><a href="index.html">الرئيسية</a></li>
-    <li><a href="index.html">المكتبة</a></li>
-    <li><a href="index.html">حول</a></li>
-    <li><a href="index.html">اتصل بنا</a></li>
-  </ul>
+<div id="navBar" role="navigation" aria-label="القائمة الرئيسية">
+  <a href="index.html" tabindex="0">الرئيسية</a>
+  <a href="index.html" tabindex="0">المكتبة</a>
+  <a href="index.html" tabindex="0">حول</a>
+  <a href="index.html" tabindex="0">اتصل بنا</a>
 </div>
 
 <div id="topBar" role="banner" aria-label="شريط معلومات المستخدم">
@@ -537,315 +280,96 @@
   </div>
 </div>
 
-<header>مكتبة STEAM</header>
+<main>
+  <h1 id="gameName">تفاصيل اللعبة</h1>
 
-<input type="search" id="searchInput" placeholder="ابحث عن لعبة..." aria-label="بحث في الألعاب" autocomplete="off" spellcheck="false" />
-
-<div id="mainContainer">
-  <aside id="filtersPanel" aria-label="فلاتر تصنيف الألعاب">
-    <h2>أنواع الألعاب</h2>
-    <label><input type="checkbox" value="أكشن" checked /> أكشن</label>
-    <label><input type="checkbox" value="حرب" checked /> حرب</label>
-    <label><input type="checkbox" value="سباق" checked /> سباق</label>
-    <label><input type="checkbox" value="مغامرات" checked /> مغامرات</label>
-    <label><input type="checkbox" value="ألغاز" checked /> ألغاز</label>
-    <label><input type="checkbox" value="استراتيجية" checked /> استراتيجية</label>
-  </aside>
-
-  <section class="cards-container" id="gamesContainer" aria-label="قائمة الألعاب">
-    <!-- الألعاب سيتم إضافتها هنا بواسطة جافا سكريبت -->
-  </section>
-</div>
-
-<!-- زر تبديل الوضع الليلي -->
-<button id="toggleTheme" aria-label="تبديل الوضع الليلي/النهاري">🌙</button>
-
-<!-- نافذة معلومات اللعبة -->
-<div id="gameModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <div>
-    <button id="modalCloseBtn" aria-label="إغلاق النافذة">&times;</button>
-    <h2 id="modalTitle"></h2>
-    <img id="modalImg" src="" alt="" />
-    <p><strong>نوع اللعبة:</strong> <span id="modalType"></span></p>
-    <p>
-      <strong>اسم المستخدم:</strong> <span id="modalUsername"></span>
-      <button id="copyUser" class="copyBtn" aria-label="نسخ اسم المستخدم">📋</button>
-    </p>
-    <p>
-      <strong>كلمة المرور:</strong> <span id="modalPassword"></span>
-      <button id="copyPass" class="copyBtn" aria-label="نسخ كلمة المرور">📋</button>
-    </p>
-  </div>
-</div>
-
-<!-- مودال تأكيد تسجيل الخروج -->
-<div id="logoutConfirmModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="logoutConfirmTitle">
-  <div>
-    <h2 id="logoutConfirmTitle">هل أنت متأكد من تسجيل الخروج؟</h2>
-    <div>
-      <button id="confirmLogoutBtn">نعم</button>
-      <button id="cancelLogoutBtn">لا</button>
+  <div class="info-row">
+    <div class="label">اسم المستخدم:</div>
+    <div class="value">
+      <span id="username">-</span>
+      <button class="copy-btn" aria-label="نسخ اسم المستخدم" title="نسخ اسم المستخدم">
+        نسخ
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
     </div>
   </div>
-</div>
+
+  <div class="info-row">
+    <div class="label">كلمة المرور:</div>
+    <div class="value">
+      <span id="password">-</span>
+      <button class="copy-btn" aria-label="نسخ كلمة المرور" title="نسخ كلمة المرور">
+        نسخ
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
+      </button>
+    </div>
+  </div>
+</main>
+
+<button id="backBtn" aria-label="العودة إلى صفحة المكتبة" title="العودة إلى صفحة المكتبة">رجوع</button>
+
+<div id="copyMessage" role="alert" aria-live="assertive" aria-atomic="true">تم النسخ!</div>
 
 <script>
-  const games = [
-    {
-      id: 'game1',
-      name: 'The Planet Crafter',
-      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1374543981567803475/cBqNakijS_ZSKvGmCX8W9Q.jpeg?ex=682e6f56&is=682d1dd6&hm=1cd23ce3eb91981044814be33571d2f06d345ee4044c777873a7f496f6981021&',
-      username: 'ggqqxx5830',
-      password: 'sS94qwjsplay',
-      type: 'مغامرات'
-    },
-    {
-      id: 'game2',
-      name: 'The Escapists',
-      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1374468790921986078/photo_2025-05-20_22-28-00.jpg?ex=682e2950&is=682cd7d0&hm=1149aa887e00f2f293a257dc80ad0286fb9085440a02a5a108322b0e5e1cd50b&',
-      username: 'vovan159rus',
-      password: '94529452',
-      type: 'أكشن'
-    },
-    {
-      id: 'game3',
-      name: 'Dark souls 3',
-      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1374543153494884442/DS3.webp?ex=682e6e91&is=682d1d11&hm=fc77d2f136dc016eb45fc2f6d84eca1bc39362a19c41abea8cc6b8cdd0476433&',
-      username: 'soull312',
-      password: 'ZPRWHeVnYNQ@@',
-      type: 'مغامرات'
-    },
-    {
-      id: 'game4',
-      name: 'Bully: Scholarship Edition',
-      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1374547230450516099/maxresdefault.jpg?ex=682e725d&is=682d20dd&hm=757b1bdb6a7e9cee3b48414350498795293809d705abe8e313d49b9af7cf4839&',
-      username: 'fatriya_diqqi23',
-      password: '15https://t.me/SHAREDSTEAM',
-      type: 'ألغاز'
-    },
-    {
-      id: 'game5',
-      name: 'Arma 3',
-      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1374548531968348291/0010469_arma-3.jpeg?ex=682e7393&is=682d2213&hm=6b44bc2876a403c7432ff7f4b52e58a1888ef6096605c68a805f320e4a89f61b&',
-      username: 'mingxiangkulian',
-      password: 'KOsa0z74FcL62jW',
-      type: 'استراتيجية'
-    }
-  ];
-
-  const container = document.getElementById('gamesContainer');
-  const searchInput = document.getElementById('searchInput');
-  const filtersPanel = document.getElementById('filtersPanel');
-  const filterCheckboxes = filtersPanel.querySelectorAll('input[type="checkbox"]');
-
+  // جلب اسم المستخدم من الجلسة للعرض في الشريط العلوي
   const usernameDisplay = document.getElementById('usernameDisplay');
-  const logoutBtn = document.getElementById('logoutBtn');
-
-  // modal لعبة
-  const modal = document.getElementById('gameModal');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalImg = document.getElementById('modalImg');
-  const modalType = document.getElementById('modalType');
-  const modalUsername = document.getElementById('modalUsername');
-  const modalPassword = document.getElementById('modalPassword');
-  const modalCloseBtn = document.getElementById('modalCloseBtn');
-  const copyUserBtn = document.getElementById('copyUser');
-  const copyPassBtn = document.getElementById('copyPass');
-
-  // مودال تأكيد تسجيل الخروج
-  const logoutConfirmModal = document.getElementById('logoutConfirmModal');
-  const confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
-  const cancelLogoutBtn = document.getElementById('cancelLogoutBtn');
-
-  // وضع المستخدم (محاكاة تسجيل دخول)
   const loggedInUser = sessionStorage.getItem('loggedInUser') || 'ضيف';
   usernameDisplay.textContent = loggedInUser;
 
-  // حدث تسجيل الخروج يظهر مودال التأكيد
-  logoutBtn.addEventListener('click', () => {
-    logoutConfirmModal.style.display = 'flex';
-    logoutConfirmModal.setAttribute('aria-hidden', 'false');
-    confirmLogoutBtn.focus();
+  // تحميل بيانات اللعبة من localStorage
+  const game = JSON.parse(localStorage.getItem('selectedGame'));
+  const gameNameElem = document.getElementById('gameName');
+  const usernameElem = document.getElementById('username');
+  const passwordElem = document.getElementById('password');
+
+  if (game) {
+    gameNameElem.textContent = game.name || 'تفاصيل اللعبة';
+    usernameElem.textContent = game.username || '-';
+    passwordElem.textContent = game.password || '-';
+  } else {
+    gameNameElem.textContent = 'لم يتم العثور على بيانات اللعبة';
+    usernameElem.textContent = '-';
+    passwordElem.textContent = '-';
+  }
+
+  // وظيفة النسخ للزر
+  function copyText(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      showCopyMessage();
+    }).catch(() => {
+      alert('حدث خطأ أثناء النسخ، الرجاء المحاولة يدوياً.');
+    });
+  }
+
+  // إظهار رسالة النسخ لفترة قصيرة
+  function showCopyMessage() {
+    const msg = document.getElementById('copyMessage');
+    msg.style.opacity = '1';
+    setTimeout(() => {
+      msg.style.opacity = '0';
+    }, 2000);
+  }
+
+  // ربط أزرار النسخ
+  document.querySelectorAll('.copy-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const valSpan = e.target.closest('button').previousElementSibling;
+      if (valSpan) {
+        copyText(valSpan.textContent);
+      }
+    });
   });
 
-  // إلغاء تسجيل الخروج
-  cancelLogoutBtn.addEventListener('click', () => {
-    logoutConfirmModal.style.display = 'none';
-    logoutConfirmModal.setAttribute('aria-hidden', 'true');
-    logoutBtn.focus();
-  });
-
-  // تأكيد تسجيل الخروج
-  confirmLogoutBtn.addEventListener('click', () => {
+  // زر الخروج
+  document.getElementById('logoutBtn').addEventListener('click', () => {
     sessionStorage.removeItem('loggedInUser');
     window.location.href = 'login.html';
   });
 
-  // إغلاق المودال لو ضغط المستخدم خارجه
-  logoutConfirmModal.addEventListener('click', e => {
-    if (e.target === logoutConfirmModal) {
-      cancelLogoutBtn.click();
-    }
+  // زر الرجوع
+  document.getElementById('backBtn').addEventListener('click', () => {
+    window.history.back();
   });
-
-  // دعم إغلاق المودال بزر Escape
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && logoutConfirmModal.style.display === 'flex') {
-      cancelLogoutBtn.click();
-    }
-  });
-
-  // التحكم في الوضع الليلي
-  const toggleThemeBtn = document.getElementById('toggleTheme');
-  const currentTheme = localStorage.getItem('theme') || 'dark';
-  document.body.classList.toggle('light', currentTheme === 'light');
-  toggleThemeBtn.textContent = currentTheme === 'light' ? '🌞' : '🌙';
-
-  toggleThemeBtn.addEventListener('click', () => {
-    const isLight = document.body.classList.toggle('light');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-    toggleThemeBtn.textContent = isLight ? '🌞' : '🌙';
-  });
-
-  // فتح نافذة معلومات اللعبة
-  function openModal(game) {
-    modalTitle.textContent = game.name;
-    modalImg.src = game.img;
-    modalImg.alt = `صورة لعبة ${game.name}`;
-    modalType.textContent = game.type;
-    modalUsername.textContent = game.username;
-    modalPassword.textContent = game.password;
-    modal.style.display = 'flex';
-    modal.setAttribute('aria-hidden', 'false');
-    modalCloseBtn.focus();
-  }
-
-  modalCloseBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-    modal.setAttribute('aria-hidden', 'true');
-  });
-
-  modal.addEventListener('click', e => {
-    if (e.target === modal) {
-      modalCloseBtn.click();
-    }
-  });
-
-  copyUserBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(modalUsername.textContent);
-    alert('تم نسخ اسم المستخدم');
-  });
-
-  copyPassBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(modalPassword.textContent);
-    alert('تم نسخ كلمة المرور');
-  });
-
-  // حفظ واسترجاع حالة الفلاتر والبحث
-  const FILTERS_KEY = 'steamFilters';
-  const SEARCH_KEY = 'steamSearch';
-
-  function saveFiltersAndSearch() {
-    const selectedTypes = Array.from(filterCheckboxes).filter(chk => chk.checked).map(chk => chk.value);
-    localStorage.setItem(FILTERS_KEY, JSON.stringify(selectedTypes));
-    localStorage.setItem(SEARCH_KEY, searchInput.value);
-  }
-
-  function loadFiltersAndSearch() {
-    const savedFilters = JSON.parse(localStorage.getItem(FILTERS_KEY));
-    if (savedFilters && Array.isArray(savedFilters)) {
-      filterCheckboxes.forEach(chk => {
-        chk.checked = savedFilters.includes(chk.value);
-      });
-    }
-    const savedSearch = localStorage.getItem(SEARCH_KEY);
-    if (savedSearch) {
-      searchInput.value = savedSearch;
-    }
-  }
-
-  // فلترة الألعاب حسب البحث والفلاتر
-  function filterGames() {
-    const searchTerm = searchInput.value.trim().toLowerCase();
-    const activeTypes = Array.from(filterCheckboxes)
-      .filter(chk => chk.checked)
-      .map(chk => chk.value);
-
-    const filtered = games.filter(game => {
-      const matchesSearch = game.name.toLowerCase().includes(searchTerm);
-      const matchesType = activeTypes.includes(game.type);
-      return matchesSearch && matchesType;
-    });
-
-    renderGames(filtered);
-  }
-
-  searchInput.addEventListener('input', () => {
-    saveFiltersAndSearch();
-    filterGames();
-  });
-
-  filterCheckboxes.forEach(chk => {
-    chk.addEventListener('change', () => {
-      saveFiltersAndSearch();
-      filterGames();
-    });
-  });
-
-  // تأثير ثلاثي الأبعاد على البطاقات
-  container.addEventListener('mousemove', e => {
-    const cards = container.querySelectorAll('.card');
-    cards.forEach(card => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      const rotateX = (-y / rect.height) * 12;
-      const rotateY = (x / rect.width) * 12;
-      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-    });
-  });
-  container.addEventListener('mouseleave', () => {
-    const cards = container.querySelectorAll('.card');
-    cards.forEach(card => {
-      card.style.transform = '';
-    });
-  });
-
-  // عرض الألعاب
-  function renderGames(filteredGames) {
-    container.innerHTML = '';
-    if (filteredGames.length === 0) {
-      container.innerHTML = `<p style="color:#00fffacc; text-align:center; font-size:1.2rem;">لم يتم العثور على ألعاب مطابقة للبحث أو الفلاتر.</p>`;
-      return;
-    }
-    filteredGames.forEach(game => {
-      const card = document.createElement('article');
-      card.className = 'card';
-      card.tabIndex = 0;
-      card.setAttribute('role', 'button');
-      card.setAttribute('aria-pressed', 'false');
-      card.setAttribute('aria-label', `فتح معلومات لعبة ${game.name}`);
-
-      card.innerHTML = `
-        <img src="${game.img}" alt="صورة لعبة ${game.name}" loading="lazy" />
-        <h3>${game.name}</h3>
-        <p class="game-type">${game.type}</p>
-      `;
-
-      card.addEventListener('click', () => openModal(game));
-      card.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          card.click();
-        }
-      });
-
-      container.appendChild(card);
-    });
-  }
-
-  loadFiltersAndSearch();
-  filterGames();
 </script>
 
 </body>
