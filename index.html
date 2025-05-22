@@ -21,9 +21,58 @@
       user-select: none;
       scroll-behavior: smooth;
       transition: background-color 0.5s ease-in-out;
+      position: relative;
+      overflow-x: hidden;
+    }
+    /* وضع النهاري */
+    body.light {
+      background: linear-gradient(135deg, #a7ffeb, #70e6d9, #004d40);
+      color: #004d40;
+    }
+    body.light #mainNav {
+      background: #a7ffeb;
+      box-shadow: 0 4px 15px rgba(0, 191, 165, 0.9);
+    }
+    body.light #topBar {
+      background: linear-gradient(90deg, #004d40, #70e6d9);
+      color: #004d40;
+    }
+    body.light .card {
+      background: linear-gradient(145deg, #b2dfdbee, #80cbc4ee);
+      color: #004d40;
+      box-shadow:
+        0 10px 28px rgba(0, 191, 165, 0.7),
+        inset 0 0 20px #009688bb;
+    }
+    body.light .card:hover,
+    body.light .card:focus-visible {
+      background: linear-gradient(145deg, #004d4066, #009688cc);
+      color: #e0f2f1;
+      box-shadow:
+        0 38px 72px rgba(0, 150, 136, 1),
+        inset 0 0 38px #009688dd;
     }
 
-    /* شريط القائمة الرئيسي */
+    /* فيديو الخلفية */
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.5) saturate(1.1);
+      pointer-events: none;
+      animation: bgVideoAnim 30s linear infinite alternate;
+    }
+    @keyframes bgVideoAnim {
+      0% { filter: brightness(0.5) saturate(1.1) contrast(1);}
+      50% { filter: brightness(0.6) saturate(1.3) contrast(1.1);}
+      100% { filter: brightness(0.5) saturate(1.1) contrast(1);}
+    }
+
+    /* القائمة الرئيسية */
     #mainNav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -41,7 +90,6 @@
       border-bottom-right-radius: 0px;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
-
     #mainNav ul {
       list-style: none;
       display: flex;
@@ -59,7 +107,6 @@
       font-family: 'Cairo', sans-serif;
       transition: transform 0.3s ease, background-color 0.3s ease;
     }
-
     #mainNav ul li a:hover,
     #mainNav ul li a:focus {
       background-color: #00bfa5;
@@ -92,20 +139,17 @@
       font-family: 'Cairo', sans-serif;
       transition: box-shadow 0.3s ease;
     }
-
     #topBar .siteTitle {
       letter-spacing: 0.1em;
       font-size: 1.5rem;
       user-select: none;
       text-shadow: 0 0 8px #00f2ccbb;
     }
-
     #topBar .userSection {
       display: flex;
       align-items: center;
       gap: 18px;
     }
-
     #topBar .usernameDisplay {
       background: #00796bdd;
       padding: 8px 20px;
@@ -119,7 +163,6 @@
       box-shadow: 0 0 12px #00f2ccaa inset;
       font-weight: 700;
     }
-
     #logoutBtn {
       background: #004d40;
       border: none;
@@ -140,14 +183,36 @@
       transform: scale(1.05);
     }
 
+    /* زر تبديل الوضع الليلي */
+    #toggleTheme {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 15000;
+      padding: 10px 20px;
+      border-radius: 20px;
+      background: #00bfa5;
+      color: #004d40;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      border: none;
+      font-family: 'Cairo', sans-serif;
+      box-shadow: 0 0 12px #00f2ccbb;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    #toggleTheme:hover {
+      background-color: #004d40;
+      color: #a7ffeb;
+    }
+
     /* تباعد المحتوى عن الشرائط الثابتة */
     #mainContainer, header, #searchInput {
-      margin-top: 120px; /* ارتفاع الشرائط + مسافة */
+      margin-top: 120px;
       width: 90%;
       max-width: 1200px;
       transition: margin-top 0.3s ease;
     }
-
     header {
       font-size: 3rem;
       font-weight: 900;
@@ -220,9 +285,7 @@
       outline-offset: 6px;
       color: #a7ffebee;
       font-family: 'Cairo', sans-serif;
-      transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
-
     .card:hover,
     .card:focus-visible {
       transform: translateY(-18px) rotateX(6deg) rotateY(8deg) scale(1.1);
@@ -234,7 +297,6 @@
       background: linear-gradient(145deg, #005d40ee, #009e76ee);
       color: #d4fff9;
     }
-
     .card img {
       width: 100%;
       height: 180px;
@@ -245,13 +307,11 @@
       border-top-left-radius: 28px;
       border-top-right-radius: 28px;
     }
-
     .card:hover img,
     .card:focus-visible img {
       transform: scale(1.07);
       filter: drop-shadow(0 0 18px #00f2ccdd);
     }
-
     .card h3 {
       margin: 18px 20px 8px;
       font-weight: 900;
@@ -259,7 +319,6 @@
       text-align: center;
       letter-spacing: 0.05em;
     }
-
     .card .game-type {
       font-size: 1.1rem;
       font-weight: 600;
@@ -269,12 +328,10 @@
       letter-spacing: 0.025em;
       font-style: italic;
     }
-
     /* التركيز بالكيبورد */
     .card:focus-visible {
       outline: none;
     }
-
     /* بحث علوي */
     #searchInput {
       margin: 0 auto 30px auto;
@@ -302,7 +359,6 @@
       box-shadow: 0 0 40px #00f2ccff inset;
       color: #00261a;
     }
-
     /* استجابة الهواتف */
     @media (max-width: 950px) {
       #mainContainer {
@@ -318,7 +374,6 @@
         width: 100%;
       }
     }
-
     @media (max-width: 500px) {
       .card h3 {
         font-size: 1.3rem;
@@ -332,9 +387,138 @@
         padding: 14px 18px;
       }
     }
+
+    /* Modal للعبة */
+    #gameModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(6px);
+      z-index: 20000;
+      justify-content: center;
+      align-items: center;
+    }
+    #gameModal[aria-hidden="false"] {
+      display: flex;
+    }
+    #gameModal > div {
+      background: #004d40;
+      border-radius: 20px;
+      max-width: 400px;
+      width: 90%;
+      padding: 30px;
+      color: #a7ffeb;
+      font-family: 'Cairo', sans-serif;
+      position: relative;
+      box-shadow: 0 0 30px #00f2cccc;
+    }
+    #modalCloseBtn {
+      position: absolute;
+      top: 10px; right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: #00f2cc;
+      cursor: pointer;
+    }
+    #modalCloseBtn:hover {
+      color: #00bfa5;
+    }
+    #gameModal img {
+      width: 100%;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+    #gameModal p {
+      margin: 6px 0;
+      font-size: 1.1rem;
+    }
+    #gameModal button.copyBtn {
+      background: #00bfa5;
+      border: none;
+      color: #004d40;
+      padding: 3px 8px;
+      border-radius: 8px;
+      margin-left: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    #gameModal button.copyBtn:hover {
+      background-color: #004d40;
+      color: #a7ffeb;
+    }
+
+    /* مودال تأكيد تسجيل الخروج */
+    #logoutConfirmModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 25000;
+      justify-content: center;
+      align-items: center;
+    }
+    #logoutConfirmModal[aria-hidden="false"] {
+      display: flex;
+    }
+    #logoutConfirmModal > div {
+      background:#004d40;
+      color:#a7ffeb;
+      padding:30px;
+      border-radius:20px;
+      max-width:320px;
+      width:90%;
+      text-align:center;
+      font-family:'Cairo', sans-serif;
+      box-shadow: 0 0 30px #00f2cccc;
+    }
+    #logoutConfirmModal h2 {
+      margin-bottom: 20px;
+    }
+    #logoutConfirmModal button {
+      cursor:pointer;
+      font-weight:700;
+      border-radius:12px;
+      padding:10px 20px;
+      font-family:'Cairo', sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      margin: 0 10px;
+      border:none;
+    }
+    #confirmLogoutBtn {
+      background:#00bfa5;
+      color:#004d40;
+    }
+    #confirmLogoutBtn:hover {
+      background:#004d40;
+      color:#a7ffeb;
+    }
+    #cancelLogoutBtn {
+      background:#004d40;
+      color:#a7ffeb;
+      border:2px solid #00bfa5;
+    }
+    #cancelLogoutBtn:hover {
+      background:#00bfa5;
+      color:#004d40;
+      border:none;
+    }
   </style>
 </head>
 <body>
+
+<!-- فيديو الخلفية -->
+<video autoplay muted loop playsinline id="bgVideo" aria-hidden="true" tabindex="-1">
+  <source src="https://cdn.videvo.net/videvo_files/video/free/2013-08/small_watermarked/blue_background_preview.webm" type="video/webm" />
+  <source src="https://cdn.discordapp.com/attachments/1339436496574349404/1374507188868874330/astronaut-on-blooming-planet.960x540.mp4?ex=682f9e92&is=682e4d12&hm=7090d2360168de171b4fff438d115c86b836ebf32d74b2f2e1481f702fbdcfe6&" type="video/mp4" />
+  متصفحك لا يدعم تشغيل الفيديو.
+</video>
 
 <div id="mainNav" role="navigation" aria-label="القائمة الرئيسية">
   <ul>
@@ -358,7 +542,6 @@
 <input type="search" id="searchInput" placeholder="ابحث عن لعبة..." aria-label="بحث في الألعاب" autocomplete="off" spellcheck="false" />
 
 <div id="mainContainer">
-
   <aside id="filtersPanel" aria-label="فلاتر تصنيف الألعاب">
     <h2>أنواع الألعاب</h2>
     <label><input type="checkbox" value="أكشن" checked /> أكشن</label>
@@ -372,7 +555,38 @@
   <section class="cards-container" id="gamesContainer" aria-label="قائمة الألعاب">
     <!-- الألعاب سيتم إضافتها هنا بواسطة جافا سكريبت -->
   </section>
+</div>
 
+<!-- زر تبديل الوضع الليلي -->
+<button id="toggleTheme" aria-label="تبديل الوضع الليلي/النهاري">🌙</button>
+
+<!-- نافذة معلومات اللعبة -->
+<div id="gameModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div>
+    <button id="modalCloseBtn" aria-label="إغلاق النافذة">&times;</button>
+    <h2 id="modalTitle"></h2>
+    <img id="modalImg" src="" alt="" />
+    <p><strong>نوع اللعبة:</strong> <span id="modalType"></span></p>
+    <p>
+      <strong>اسم المستخدم:</strong> <span id="modalUsername"></span>
+      <button id="copyUser" class="copyBtn" aria-label="نسخ اسم المستخدم">📋</button>
+    </p>
+    <p>
+      <strong>كلمة المرور:</strong> <span id="modalPassword"></span>
+      <button id="copyPass" class="copyBtn" aria-label="نسخ كلمة المرور">📋</button>
+    </p>
+  </div>
+</div>
+
+<!-- مودال تأكيد تسجيل الخروج -->
+<div id="logoutConfirmModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="logoutConfirmTitle">
+  <div>
+    <h2 id="logoutConfirmTitle">هل أنت متأكد من تسجيل الخروج؟</h2>
+    <div>
+      <button id="confirmLogoutBtn">نعم</button>
+      <button id="cancelLogoutBtn">لا</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -424,21 +638,180 @@
   const filtersPanel = document.getElementById('filtersPanel');
   const filterCheckboxes = filtersPanel.querySelectorAll('input[type="checkbox"]');
 
-  // جلب اسم المستخدم من الجلسة للعرض في الشريط العلوي
   const usernameDisplay = document.getElementById('usernameDisplay');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  // modal لعبة
+  const modal = document.getElementById('gameModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalImg = document.getElementById('modalImg');
+  const modalType = document.getElementById('modalType');
+  const modalUsername = document.getElementById('modalUsername');
+  const modalPassword = document.getElementById('modalPassword');
+  const modalCloseBtn = document.getElementById('modalCloseBtn');
+  const copyUserBtn = document.getElementById('copyUser');
+  const copyPassBtn = document.getElementById('copyPass');
+
+  // مودال تأكيد تسجيل الخروج
+  const logoutConfirmModal = document.getElementById('logoutConfirmModal');
+  const confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
+  const cancelLogoutBtn = document.getElementById('cancelLogoutBtn');
+
+  // وضع المستخدم (محاكاة تسجيل دخول)
   const loggedInUser = sessionStorage.getItem('loggedInUser') || 'ضيف';
   usernameDisplay.textContent = loggedInUser;
 
-  // زر خروج ومسح الجلسة
-  const logoutBtn = document.getElementById('logoutBtn');
+  // حدث تسجيل الخروج يظهر مودال التأكيد
   logoutBtn.addEventListener('click', () => {
+    logoutConfirmModal.style.display = 'flex';
+    logoutConfirmModal.setAttribute('aria-hidden', 'false');
+    confirmLogoutBtn.focus();
+  });
+
+  // إلغاء تسجيل الخروج
+  cancelLogoutBtn.addEventListener('click', () => {
+    logoutConfirmModal.style.display = 'none';
+    logoutConfirmModal.setAttribute('aria-hidden', 'true');
+    logoutBtn.focus();
+  });
+
+  // تأكيد تسجيل الخروج
+  confirmLogoutBtn.addEventListener('click', () => {
     sessionStorage.removeItem('loggedInUser');
     window.location.href = 'login.html';
   });
 
-  // تنفيذ فحص أولي عند تحميل الصفحة
-  window.dispatchEvent(new Event('scroll'));
+  // إغلاق المودال لو ضغط المستخدم خارجه
+  logoutConfirmModal.addEventListener('click', e => {
+    if (e.target === logoutConfirmModal) {
+      cancelLogoutBtn.click();
+    }
+  });
 
+  // دعم إغلاق المودال بزر Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && logoutConfirmModal.style.display === 'flex') {
+      cancelLogoutBtn.click();
+    }
+  });
+
+  // التحكم في الوضع الليلي
+  const toggleThemeBtn = document.getElementById('toggleTheme');
+  const currentTheme = localStorage.getItem('theme') || 'dark';
+  document.body.classList.toggle('light', currentTheme === 'light');
+  toggleThemeBtn.textContent = currentTheme === 'light' ? '🌞' : '🌙';
+
+  toggleThemeBtn.addEventListener('click', () => {
+    const isLight = document.body.classList.toggle('light');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    toggleThemeBtn.textContent = isLight ? '🌞' : '🌙';
+  });
+
+  // فتح نافذة معلومات اللعبة
+  function openModal(game) {
+    modalTitle.textContent = game.name;
+    modalImg.src = game.img;
+    modalImg.alt = `صورة لعبة ${game.name}`;
+    modalType.textContent = game.type;
+    modalUsername.textContent = game.username;
+    modalPassword.textContent = game.password;
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+    modalCloseBtn.focus();
+  }
+
+  modalCloseBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+  });
+
+  modal.addEventListener('click', e => {
+    if (e.target === modal) {
+      modalCloseBtn.click();
+    }
+  });
+
+  copyUserBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(modalUsername.textContent);
+    alert('تم نسخ اسم المستخدم');
+  });
+
+  copyPassBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(modalPassword.textContent);
+    alert('تم نسخ كلمة المرور');
+  });
+
+  // حفظ واسترجاع حالة الفلاتر والبحث
+  const FILTERS_KEY = 'steamFilters';
+  const SEARCH_KEY = 'steamSearch';
+
+  function saveFiltersAndSearch() {
+    const selectedTypes = Array.from(filterCheckboxes).filter(chk => chk.checked).map(chk => chk.value);
+    localStorage.setItem(FILTERS_KEY, JSON.stringify(selectedTypes));
+    localStorage.setItem(SEARCH_KEY, searchInput.value);
+  }
+
+  function loadFiltersAndSearch() {
+    const savedFilters = JSON.parse(localStorage.getItem(FILTERS_KEY));
+    if (savedFilters && Array.isArray(savedFilters)) {
+      filterCheckboxes.forEach(chk => {
+        chk.checked = savedFilters.includes(chk.value);
+      });
+    }
+    const savedSearch = localStorage.getItem(SEARCH_KEY);
+    if (savedSearch) {
+      searchInput.value = savedSearch;
+    }
+  }
+
+  // فلترة الألعاب حسب البحث والفلاتر
+  function filterGames() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    const activeTypes = Array.from(filterCheckboxes)
+      .filter(chk => chk.checked)
+      .map(chk => chk.value);
+
+    const filtered = games.filter(game => {
+      const matchesSearch = game.name.toLowerCase().includes(searchTerm);
+      const matchesType = activeTypes.includes(game.type);
+      return matchesSearch && matchesType;
+    });
+
+    renderGames(filtered);
+  }
+
+  searchInput.addEventListener('input', () => {
+    saveFiltersAndSearch();
+    filterGames();
+  });
+
+  filterCheckboxes.forEach(chk => {
+    chk.addEventListener('change', () => {
+      saveFiltersAndSearch();
+      filterGames();
+    });
+  });
+
+  // تأثير ثلاثي الأبعاد على البطاقات
+  container.addEventListener('mousemove', e => {
+    const cards = container.querySelectorAll('.card');
+    cards.forEach(card => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      const rotateX = (-y / rect.height) * 12;
+      const rotateY = (x / rect.width) * 12;
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    });
+  });
+  container.addEventListener('mouseleave', () => {
+    const cards = container.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.style.transform = '';
+    });
+  });
+
+  // عرض الألعاب
   function renderGames(filteredGames) {
     container.innerHTML = '';
     if (filteredGames.length === 0) {
@@ -459,11 +832,7 @@
         <p class="game-type">${game.type}</p>
       `;
 
-      card.addEventListener('click', () => {
-        localStorage.setItem('selectedGame', JSON.stringify(game));
-        window.location.href = 'game-info.html';
-      });
-
+      card.addEventListener('click', () => openModal(game));
       card.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
@@ -475,26 +844,8 @@
     });
   }
 
-  // فلترة الألعاب حسب البحث والفلاتر
-  function filterGames() {
-    const searchTerm = searchInput.value.trim().toLowerCase();
-    const activeTypes = Array.from(filterCheckboxes)
-      .filter(chk => chk.checked)
-      .map(chk => chk.value);
-
-    const filtered = games.filter(game => {
-      const matchesSearch = game.name.toLowerCase().includes(searchTerm);
-      const matchesType = activeTypes.includes(game.type);
-      return matchesSearch && matchesType;
-    });
-
-    renderGames(filtered);
-  }
-
-  searchInput.addEventListener('input', filterGames);
-  filterCheckboxes.forEach(chk => chk.addEventListener('change', filterGames));
-
-  renderGames(games);
+  loadFiltersAndSearch();
+  filterGames();
 </script>
 
 </body>
