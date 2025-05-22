@@ -37,6 +37,7 @@
       position: relative;
       overflow: hidden;
       transition: background-color 0.5s ease-in-out;
+      flex-direction: column;
     }
 
     /* مؤشر مخصص مع نبض */
@@ -111,8 +112,6 @@
       z-index: 1;
       color: #e0f2f1;
       transition: all 0.3s ease;
-      opacity: 0;
-      animation: fadeInUp 1s forwards;
       font-family: 'Cairo', sans-serif;
       user-select: text;
     }
@@ -127,7 +126,8 @@
     }
 
     input[type="email"],
-    input[type="password"] {
+    input[type="password"],
+    input[type="text"] {
       width: 100%;
       padding: 12px 14px;
       margin: 12px 0 20px;
@@ -144,7 +144,8 @@
     }
 
     input[type="email"]:focus,
-    input[type="password"]:focus {
+    input[type="password"]:focus,
+    input[type="text"]:focus {
       box-shadow: 0 0 18px #00fffacc;
       transform: scale(1.05);
     }
@@ -213,6 +214,50 @@
       animation: errorFlash 1s ease 0 3;
     }
 
+    /* تسجيل دخول المطور */
+    #developerLogin {
+      margin-top: 30px;
+      background: #004d40cc;
+      padding: 20px;
+      border-radius: 12px;
+      width: 320px;
+      color: #a7ffeb;
+      font-family: 'Cairo', sans-serif;
+      user-select: text;
+    }
+    #developerLogin h3 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    #developerLogin input {
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      width: 100%;
+      color: #004d40;
+      background-color: #b2dfdbee;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    #developerLogin button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 20px;
+      border: none;
+      background: #00bfa5;
+      color: #004d40;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    #developerLogin button:hover {
+      background: #007961;
+      color: #a7ffeb;
+    }
+
     /* الرسوم المتحركة */
     @keyframes fadeInUp {
       from {
@@ -277,6 +322,15 @@
     <div id="errorMsg" role="alert" aria-live="assertive"></div>
   </div>
 
+  <!-- قسم تسجيل دخول المطور -->
+  <div id="developerLogin" role="region" aria-label="تسجيل دخول المطور">
+    <h3>للمطور</h3>
+    <input type="text" id="devUsername" placeholder="اسم المستخدم الخاص بالمطور" aria-label="اسم مستخدم المطور" />
+    <input type="password" id="devPassword" placeholder="كلمة المرور الخاصة بالمطور" aria-label="كلمة مرور المطور" />
+    <button id="devLoginBtn" aria-label="زر تسجيل دخول المطور">تسجيل دخول المطور</button>
+    <div id="devErrorMsg" role="alert" aria-live="assertive" style="color:#ff6e6e; font-weight:700; margin-top:10px; display:none;"></div>
+  </div>
+
   <div id="customCursor" aria-hidden="true"></div>
 
 <script>
@@ -291,6 +345,15 @@
   const errorMsg = document.getElementById("errorMsg");
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
+
+  // بيانات تسجيل دخول المطور - غيّر هذه القيم لاسم المستخدم وكلمة السر اللي تريدها
+  const DEV_USERNAME = "11";
+  const DEV_PASSWORD = "11";
+
+  const devLoginBtn = document.getElementById("devLoginBtn");
+  const devUsernameInput = document.getElementById("devUsername");
+  const devPasswordInput = document.getElementById("devPassword");
+  const devErrorMsg = document.getElementById("devErrorMsg");
 
   // تحميل البريد الإلكتروني المخزن محليًا في الحقل
   window.onload = () => {
@@ -328,13 +391,39 @@
       sessionStorage.setItem("loggedInUser", email);
       localStorage.setItem("savedEmail", email);
       audioSuccess.play();
-      // تأخير بسيط قبل الانتقال لإظهار الصوت والرسالة
       setTimeout(() => {
-        window.location.href = "index.html"; // عدل لوجهة الصفحة المطلوبة
+        window.location.href = "index.html";
       }, 700);
     } else {
       errorMsg.textContent = "البريد الإلكتروني أو كلمة المرور غير صحيحة!";
       errorMsg.style.display = "block";
+      audioError.play();
+    }
+  });
+
+  // تسجيل دخول المطور
+  devLoginBtn.addEventListener("click", () => {
+    const username = devUsernameInput.value.trim();
+    const password = devPasswordInput.value;
+
+    devErrorMsg.style.display = "none";
+    devErrorMsg.textContent = "";
+
+    if (!username || !password) {
+      devErrorMsg.textContent = "يرجى ملء جميع الحقول!";
+      devErrorMsg.style.display = "block";
+      audioError.play();
+      return;
+    }
+
+    if (username === DEV_USERNAME && password === DEV_PASSWORD) {
+      audioSuccess.play();
+      setTimeout(() => {
+        window.location.href = "add.html";
+      }, 700);
+    } else {
+      devErrorMsg.textContent = "اسم المستخدم أو كلمة المرور للمطور غير صحيحة!";
+      devErrorMsg.style.display = "block";
       audioError.play();
     }
   });
