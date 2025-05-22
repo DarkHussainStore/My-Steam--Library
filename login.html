@@ -10,7 +10,7 @@
       box-sizing: border-box;
     }
 
-    /* فيديو الخلفية يغطي الشاشة */
+    /* خلفية الفيديو */
     #bgVideo {
       position: fixed;
       top: 0;
@@ -19,14 +19,15 @@
       height: 100vh;
       object-fit: cover;
       z-index: -1;
-      filter: brightness(0.3) saturate(1.2) contrast(1.1);
+      filter: brightness(0.35) saturate(1.3) contrast(1.15);
+      transition: filter 0.5s ease;
     }
 
     body {
       margin: 0; padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: black; /* لون احتياطي */
-      color: #fff;
+      background: black;
+      color: #e0f2f1;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -38,19 +39,43 @@
       transition: background-color 0.5s ease-in-out;
     }
 
-    /* مؤشر مخصص */
+    /* مؤشر مخصص مع نبض */
     #customCursor {
       position: fixed;
       top: 0;
       left: 0;
       width: 20px;
       height: 20px;
-      background-color: rgba(0, 191, 165, 0.8);
+      background-color: rgba(0, 191, 165, 0.85);
       border-radius: 50%;
       pointer-events: none;
       transform: translate(-50%, -50%);
-      transition: background-color 0.2s ease, transform 0.1s ease;
+      transition: background-color 0.3s ease, transform 0.12s ease;
       z-index: 10000;
+      box-shadow:
+        0 0 8px #00bfa5cc,
+        0 0 20px #00f2ccbb;
+      will-change: transform;
+      animation: pulse 2.5s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 8px #00bfa5cc, 0 0 20px #00f2ccbb;
+      }
+      50% {
+        box-shadow: 0 0 18px #00fffacc, 0 0 40px #00fffacc;
+      }
+    }
+
+    button:hover ~ #customCursor,
+    input:focus ~ #customCursor {
+      transform: translate(-50%, -50%) scale(1.6);
+      background-color: rgba(0, 255, 230, 0.9);
+      box-shadow:
+        0 0 18px #00f2ccdd,
+        0 0 40px #00f2ccdd;
+      animation: none;
     }
 
     /* رسالة الترحيب */
@@ -59,21 +84,27 @@
       top: 20px;
       font-size: 1.5rem;
       font-weight: 700;
-      color: #fff;
+      color: #00e0c4cc;
       z-index: 999;
       background: rgba(0, 77, 64, 0.7);
       padding: 10px 15px;
       border-radius: 10px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
-      animation: fadeIn 1.5s ease-in-out;
+      box-shadow: 0 0 12px rgba(0, 191, 165, 0.6);
+      animation: glowText 3s ease-in-out infinite alternate;
+      user-select: none;
+      font-family: 'Cairo', sans-serif;
+      text-align: center;
+      width: fit-content;
+      margin-inline: auto;
+      left: 0; right: 0;
     }
 
-    /* التأثيرات على تسجيل الدخول */
+    /* تسجيل الدخول */
     #loginBox {
-      background: linear-gradient(135deg, #004d40, #006954);
+      background: linear-gradient(135deg, #004d40cc, #006954cc);
       padding: 40px 30px;
       border-radius: 20px;
-      box-shadow: 0 0 30px #00bfa5cc;
+      box-shadow: 0 0 20px #00bfa5cc;
       width: 320px;
       text-align: center;
       position: relative;
@@ -82,6 +113,8 @@
       transition: all 0.3s ease;
       opacity: 0;
       animation: fadeInUp 1s forwards;
+      font-family: 'Cairo', sans-serif;
+      user-select: text;
     }
 
     #loginBox h2 {
@@ -90,6 +123,7 @@
       font-size: 2rem;
       text-shadow: 0 0 8px #00fffacc;
       color: #b2dfdb;
+      user-select: none;
     }
 
     input[type="email"],
@@ -106,33 +140,67 @@
       transition: box-shadow 0.3s ease, transform 0.2s ease;
       color: #004d40;
       background-color: #b2dfdbee;
+      box-shadow: inset 0 0 8px #00bfa5aa;
     }
 
     input[type="email"]:focus,
     input[type="password"]:focus {
-      box-shadow: 0 0 12px #00fffacc;
+      box-shadow: 0 0 18px #00fffacc;
       transform: scale(1.05);
+    }
+
+    /* أداة التلميح */
+    input[title], button[title] {
+      position: relative;
+    }
+    input[title]:hover::after,
+    button[title]:hover::after {
+      content: attr(title);
+      position: absolute;
+      top: -28px;
+      right: 0;
+      background: #004d40cc;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: #b2dfdb;
+      white-space: nowrap;
+      box-shadow: 0 0 6px #00bfa5cc;
+      user-select: none;
+      z-index: 9999;
+      pointer-events: none;
     }
 
     button {
       width: 100%;
       padding: 14px;
-      background: linear-gradient(135deg, #00bfa5, #004d40);
+      background: linear-gradient(135deg, #00bfa5cc, #004d40cc);
       border: none;
       border-radius: 30px;
       color: white;
       font-weight: 900;
       font-size: 1.1rem;
       cursor: pointer;
-      box-shadow: 0 8px 20px #00fffacc;
-      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 0 20px #00bfa5cc;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
       user-select: none;
     }
 
     button:hover {
-      background: linear-gradient(135deg, #004d40, #00bfa5);
-      transform: scale(1.05);
-      box-shadow: 0 10px 30px #00fffacc;
+      background: linear-gradient(135deg, #004d40cc, #00bfa5cc);
+      transform: scale(1.07);
+      box-shadow: 0 0 30px #00fffacc;
+    }
+
+    /* نص تحذيري أسفل الزر */
+    #hintText {
+      font-size: 0.85rem;
+      color: #00bfa5aa;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      font-weight: 600;
+      user-select: none;
+      font-family: 'Cairo', sans-serif;
     }
 
     #errorMsg {
@@ -141,25 +209,11 @@
       font-weight: 700;
       display: none;
       text-shadow: 0 0 6px #ff4d4d;
-    }
-
-    /* تأثيرات تحريك الحقول */
-    input[type="email"]:focus,
-    input[type="password"]:focus {
-      border-color: #00bfa5;
-      box-shadow: 0 0 15px rgba(0, 191, 165, 0.6);
+      user-select: none;
+      animation: errorFlash 1s ease 0 3;
     }
 
     /* الرسوم المتحركة */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -171,88 +225,127 @@
       }
     }
 
-    @keyframes glow {
-      0% {
-        box-shadow: 0 0 5px rgba(0, 191, 165, 0.6);
+    @keyframes glowText {
+      from {
+        text-shadow:
+          0 0 8px #00f2ccbb,
+          0 0 18px #00f2ccbb;
       }
-      50% {
-        box-shadow: 0 0 20px rgba(0, 191, 165, 1);
-      }
-      100% {
-        box-shadow: 0 0 5px rgba(0, 191, 165, 0.6);
+      to {
+        text-shadow:
+          0 0 18px #00fffacc,
+          0 0 48px #00fffacc;
       }
     }
 
+    @keyframes errorFlash {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
   </style>
 </head>
 <body>
+
   <!-- فيديو الخلفية -->
   <video autoplay muted loop playsinline id="bgVideo" aria-hidden="true" tabindex="-1">
     <source src="https://cdn.videvo.net/videvo_files/video/free/2013-08/small_watermarked/blue_background_preview.webm" type="video/webm" />
     <source src="https://cdn.discordapp.com/attachments/1339436496574349404/1374507188868874330/astronaut-on-blooming-planet.960x540.mp4?ex=682f9e92&is=682e4d12&hm=7090d2360168de171b4fff438d115c86b836ebf32d74b2f2e1481f702fbdcfe6&" type="video/mp4" />
-    <!-- رابط فيديو احتياطي -->
     متصفحك لا يدعم تشغيل الفيديو.
   </video>
 
-  <div class="welcome-message">مرحبًا بك في مكتبة الألعاب</div>
+  <div class="welcome-message" role="heading" aria-level="1">مرحبًا بك في مكتبة الألعاب</div>
 
   <div id="loginBox" role="main" aria-label="صفحة تسجيل الدخول">
     <h2>تسجيل الدخول</h2>
-    <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" autocomplete="off" aria-label="البريد الإلكتروني" />
-    <input type="password" id="password" placeholder="أدخل كلمة المرور" aria-label="كلمة المرور" />
-    <button id="loginBtn" aria-label="زر تسجيل الدخول">دخول</button>
+    <input
+      type="email"
+      id="email"
+      placeholder="أدخل بريدك الإلكتروني"
+      autocomplete="off"
+      aria-label="البريد الإلكتروني"
+      title="أدخل بريدك الإلكتروني الصحيح"
+    />
+    <input
+      type="password"
+      id="password"
+      placeholder="أدخل كلمة المرور"
+      aria-label="كلمة المرور"
+      title="كلمة المرور الخاصة بك"
+    />
+    <button id="loginBtn" aria-label="زر تسجيل الدخول" title="انقر للدخول">دخول</button>
+    <div id="hintText">تأكد من صحة بريدك وكلمة المرور قبل الضغط على دخول</div>
     <div id="errorMsg" role="alert" aria-live="assertive"></div>
   </div>
 
-  <div id="customCursor"></div>
+  <div id="customCursor" aria-hidden="true"></div>
 
-  <script>
-    // بيانات حسابات مسموح لها (إضافة وإزالة حسب حاجتك)
-    const allowedUsers = [
-      { email: "user1@example.com", password: "pass1234" },
-      { email: "user2@example.com", password: "pass456" },
-      { email: "admin@yourdomain.com", password: "AdminPass!" }
-    ];
+<script>
+  // بيانات حسابات مسموح لها (يمكن تعديلها حسب الحاجة)
+  const allowedUsers = [
+    { email: "user1@example.com", password: "pass1234" },
+    { email: "user2@example.com", password: "pass456" },
+    { email: "admin@yourdomain.com", password: "AdminPass!" }
+  ];
 
-    const loginBtn = document.getElementById("loginBtn");
-    const errorMsg = document.getElementById("errorMsg");
+  const loginBtn = document.getElementById("loginBtn");
+  const errorMsg = document.getElementById("errorMsg");
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
 
-    loginBtn.addEventListener("click", () => {
-      const email = document.getElementById("email").value.trim().toLowerCase();
-      const password = document.getElementById("password").value;
-      errorMsg.style.display = "none";
-      errorMsg.textContent = "";
+  // تحميل البريد الإلكتروني المخزن محليًا في الحقل
+  window.onload = () => {
+    const savedEmail = localStorage.getItem("savedEmail");
+    if (savedEmail) {
+      emailInput.value = savedEmail;
+    }
 
-      if (!email || !password) {
-        errorMsg.textContent = "يرجى ملء جميع الحقول!";
-        errorMsg.style.display = "block";
-        return;
-      }
+    // إعادة توجيه تلقائي إذا المستخدم مسجل دخوله مسبقًا
+    if (sessionStorage.getItem("loggedInUser")) {
+      window.location.href = "index.html";
+    }
+  };
 
-      const userFound = allowedUsers.find(u => u.email === email && u.password === password);
+  // الأصوات
+  const audioSuccess = new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg");
+  const audioError = new Audio("https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg");
 
-      if (userFound) {
-        sessionStorage.setItem("loggedInUser", email);
-        window.location.href = "index.html"; // استبدلها بصفحة الأدوات أو الرئيسية
-      } else {
-        errorMsg.textContent = "البريد الإلكتروني أو كلمة المرور غير صحيحة!";
-        errorMsg.style.display = "block";
-      }
-    });
+  loginBtn.addEventListener("click", () => {
+    const email = emailInput.value.trim().toLowerCase();
+    const password = passwordInput.value;
+    errorMsg.style.display = "none";
+    errorMsg.textContent = "";
 
-    // إعادة توجيه تلقائي إذا المستخدم مسجل دخوله
-    window.onload = () => {
-      if (sessionStorage.getItem("loggedInUser")) {
-        window.location.href = "index.html";
-      }
-    };
+    if (!email || !password) {
+      errorMsg.textContent = "يرجى ملء جميع الحقول!";
+      errorMsg.style.display = "block";
+      audioError.play();
+      return;
+    }
 
-    // تحريك المؤشر الدائري مع حركة الماوس
-    const customCursor = document.getElementById('customCursor');
-    window.addEventListener('mousemove', e => {
-      customCursor.style.left = e.clientX + 'px';
-      customCursor.style.top = e.clientY + 'px';
-    });
-  </script>
+    const userFound = allowedUsers.find(u => u.email === email && u.password === password);
+
+    if (userFound) {
+      sessionStorage.setItem("loggedInUser", email);
+      localStorage.setItem("savedEmail", email);
+      audioSuccess.play();
+      // تأخير بسيط قبل الانتقال لإظهار الصوت والرسالة
+      setTimeout(() => {
+        window.location.href = "index.html"; // عدل لوجهة الصفحة المطلوبة
+      }, 700);
+    } else {
+      errorMsg.textContent = "البريد الإلكتروني أو كلمة المرور غير صحيحة!";
+      errorMsg.style.display = "block";
+      audioError.play();
+    }
+  });
+
+  // تحريك المؤشر الدائري مع حركة الماوس
+  const customCursor = document.getElementById('customCursor');
+  window.addEventListener('mousemove', e => {
+    customCursor.style.left = e.clientX + 'px';
+    customCursor.style.top = e.clientY + 'px';
+  });
+</script>
+
 </body>
 </html>
