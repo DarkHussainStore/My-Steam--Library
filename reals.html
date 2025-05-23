@@ -2,6 +2,12 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
+   <!-- فيديو الخلفية -->
+  <video autoplay muted loop playsinline id="bgVideo" aria-hidden="true" tabindex="-1">
+    <source src="https://cdn.videvo.net/videvo_files/video/free/2013-08/small_watermarked/blue_background_preview.webm" type="video/webm" />
+    <source src="https://cdn.discordapp.com/attachments/1339436496574349404/1374507188868874330/astronaut-on-blooming-planet.960x540.mp4?ex=682f9e92&is=682e4d12&hm=7090d2360168de171b4fff438d115c86b836ebf32d74b2f2e1481f702fbdcfe6&" type="video/mp4" />
+    متصفحك لا يدعم تشغيل الفيديو.
+  </video>
   <title>قوانين الحسابات</title>
   <style>
     body {
@@ -18,14 +24,27 @@
       padding: 20px;
     }
 
+     /* خلفية الفيديو */
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.35) saturate(1.3) contrast(1.15);
+      transition: filter 0.5s ease;
+    }
+
     .rules-container {
       max-width: 700px;
       width: 100%;
-      background-color: rgba(0, 77, 64, 0.85); /* أخضر غامق مع شفافية */
+      background-color: rgba(0, 77, 64, 0.); /* أخضر غامق مع شفافية */
       border-radius: 15px;
       padding: 30px 40px;
-      box-shadow: 0 0 18px rgba(0, 100, 0, 0.7);
-      border: 2px solid #26a69a;
+      box-shadow: 0 0 18px rgba(3, 199, 124, 0.7);
+      border: 2px solid #85b1ac;
       color: #e0f2f1;
       position: relative;
     }
@@ -49,9 +68,11 @@
       margin-bottom: 14px;
       padding: 16px 20px;
       border-radius: 10px;
+      background-color: rgba(0, 77, 64, 0.); /* أخضر غامق مع شفافية */
+      border: 2px solid #004d40;
       position: relative;
       padding-right: 45px;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 500;
       color: #e0f2f1;
       box-shadow: 0 2px 6px rgba(0, 100, 0, 0.5);
@@ -60,6 +81,8 @@
 
     li:hover {
       background-color: #004d40;
+      background: linear-gradient(135deg, #f70707, #790000);
+      color: #e0f2f1;
     }
 
     li::before {
@@ -88,6 +111,8 @@
 
     .back-button:hover {
       background-color: #1e7e74;
+            background: linear-gradient(135deg, #f70707, #790000);
+
     }
   </style>
 </head>
