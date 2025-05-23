@@ -215,48 +215,7 @@
     }
 
     /* تسجيل دخول المطور */
-    #developerLogin {
-      margin-top: 30px;
-      background: #004d40cc;
-      padding: 20px;
-      border-radius: 12px;
-      width: 320px;
-      color: #a7ffeb;
-      font-family: 'Cairo', sans-serif;
-      user-select: text;
-    }
-    #developerLogin h3 {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    #developerLogin input {
-      margin-bottom: 10px;
-      padding: 8px;
-      border-radius: 8px;
-      border: none;
-      width: 100%;
-      color: #004d40;
-      background-color: #b2dfdbee;
-      font-weight: 600;
-      font-size: 1rem;
-    }
-    #developerLogin button {
-      width: 100%;
-      padding: 10px;
-      border-radius: 20px;
-      border: none;
-      background: #00bfa5;
-      color: #004d40;
-      font-weight: 700;
-      cursor: pointer;
-      user-select: none;
-      font-size: 1rem;
-      transition: background-color 0.3s ease;
-    }
-    #developerLogin button:hover {
-      background: #007961;
-      color: #a7ffeb;
-    }
+    
 
     /* الرسوم المتحركة */
     @keyframes fadeInUp {
@@ -322,22 +281,42 @@
     <div id="errorMsg" role="alert" aria-live="assertive"></div>
   </div>
 
-  <!-- قسم تسجيل دخول المطور -->
-  <div id="developerLogin" role="region" aria-label="تسجيل دخول المطور">
-    <h3>للمطور</h3>
-    <input type="text" id="devUsername" placeholder="اسم المستخدم الخاص بالمطور" aria-label="اسم مستخدم المطور" />
-    <input type="password" id="devPassword" placeholder="كلمة المرور الخاصة بالمطور" aria-label="كلمة مرور المطور" />
-    <button id="devLoginBtn" aria-label="زر تسجيل دخول المطور">تسجيل دخول المطور</button>
-    <div id="devErrorMsg" role="alert" aria-live="assertive" style="color:#ff6e6e; font-weight:700; margin-top:10px; display:none;"></div>
-  </div>
+  
 
   <div id="customCursor" aria-hidden="true"></div>
 
 <script>
-  // بيانات حسابات مسموح لها (يمكن تعديلها حسب الحاجة)
   const allowedUsers = [
-    { email: "user1@example.com", password: "pass1234" },
-    { email: "user2@example.com", password: "pass456" },
+    { email: "ste2am1@gmail.com", password: "pass1234" }, //تم استخدامه
+    { email: "steam1@gmail.com", password: "pass1234" }, //تم استخدامه
+    { email: "steam2@gmail.com", password: "pass1234" },
+    { email: "steam3@gmail.com", password: "pass1234" },
+    { email: "steam4@gmail.com", password: "pass1234" },
+    { email: "steam5@gmail.com", password: "pass1234" },
+    { email: "steam6@gmail.com", password: "pass1234" },
+    { email: "steam7@gmail.com", password: "pass1234" },
+    { email: "steam8@gmail.com", password: "pass1234" },
+    { email: "steam9@gmail.com", password: "pass1234" },
+    { email: "steam10@gmail.com", password: "pass1234" },
+    { email: "steam11@gmail.com", password: "pass1234" },
+    { email: "steam12@gmail.com", password: "pass1234" },
+    { email: "steam13@gmail.com", password: "pass1234" },
+    { email: "steam14@sa.com", password: "pass1234" },
+    { email: "steam15@sa.com", password: "pass1234" },
+    { email: "steam16@sa.com", password: "pass1234" },
+    { email: "steam17@sa.com", password: "pass1234" },
+    { email: "steam18@sa.com", password: "pass1234" },
+    { email: "steam19@sa.com", password: "pass1234" },
+    { email: "steam20@sa.com", password: "pass1234" },
+    { email: "steam21@sa.com", password: "pass1234" },
+    { email: "steam22@sa.com", password: "pass1234" },
+    { email: "steam23@sa.com", password: "pass1234" },
+    { email: "steam24@sa.com", password: "pass1234" },
+    { email: "steam25@sa.com", password: "pass1234" },
+    { email: "steam26@sa.com", password: "pass1234" },
+    { email: "steam27@sa.com", password: "pass1234" },
+
+
     { email: "admin@yourdomain.com", password: "AdminPass!" }
   ];
 
@@ -346,95 +325,60 @@
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
 
-  // بيانات تسجيل دخول المطور - غيّر هذه القيم لاسم المستخدم وكلمة السر اللي تريدها
-  const DEV_USERNAME = "11";
-  const DEV_PASSWORD = "11";
-
-  const devLoginBtn = document.getElementById("devLoginBtn");
-  const devUsernameInput = document.getElementById("devUsername");
-  const devPasswordInput = document.getElementById("devPassword");
-  const devErrorMsg = document.getElementById("devErrorMsg");
-
-  // تحميل البريد الإلكتروني المخزن محليًا في الحقل
   window.onload = () => {
     const savedEmail = localStorage.getItem("savedEmail");
     if (savedEmail) {
       emailInput.value = savedEmail;
     }
 
-    // إعادة توجيه تلقائي إذا المستخدم مسجل دخوله مسبقًا
     if (sessionStorage.getItem("loggedInUser")) {
       window.location.href = "index.html";
     }
   };
 
-  // الأصوات
   const audioSuccess = new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg");
   const audioError = new Audio("https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg");
 
   loginBtn.addEventListener("click", () => {
-    const email = emailInput.value.trim().toLowerCase();
-    const password = passwordInput.value;
-    errorMsg.style.display = "none";
-    errorMsg.textContent = "";
+  const email = emailInput.value.trim().toLowerCase();
+  const password = passwordInput.value;
+  errorMsg.style.display = "none";
+  errorMsg.textContent = "";
 
-    if (!email || !password) {
-      errorMsg.textContent = "يرجى ملء جميع الحقول!";
-      errorMsg.style.display = "block";
-      audioError.play();
-      return;
-    }
+  if (!email || !password) {
+    errorMsg.textContent = "يرجى ملء جميع الحقول!";
+    errorMsg.style.display = "block";
+    audioError.play();
+    return;
+  }
 
-    const userFound = allowedUsers.find(u => u.email === email && u.password === password);
+  // التحقق من عدد مرات الاستخدام
+  const usageCount = parseInt(localStorage.getItem("usageCount_" + email)) || 0;
+  if (usageCount >= 3) {
+    errorMsg.textContent = "تم استخدام هذا الحساب مسبقًا. لا يمكن استخدامه مرة أخرى.";
+    errorMsg.style.display = "block";
+    audioError.play();
+    return;
+  }
 
-    if (userFound) {
-      sessionStorage.setItem("loggedInUser", email);
-      localStorage.setItem("savedEmail", email);
-      audioSuccess.play();
-      setTimeout(() => {
-        window.location.href = "index.html";
-      }, 700);
-    } else {
-      errorMsg.textContent = "البريد الإلكتروني أو كلمة المرور غير صحيحة!";
-      errorMsg.style.display = "block";
-      audioError.play();
-    }
-  });
+  const userFound = allowedUsers.find(u => u.email === email && u.password === password);
 
-  // تسجيل دخول المطور
-  devLoginBtn.addEventListener("click", () => {
-    const username = devUsernameInput.value.trim();
-    const password = devPasswordInput.value;
-
-    devErrorMsg.style.display = "none";
-    devErrorMsg.textContent = "";
-
-    if (!username || !password) {
-      devErrorMsg.textContent = "يرجى ملء جميع الحقول!";
-      devErrorMsg.style.display = "block";
-      audioError.play();
-      return;
-    }
-
-    if (username === DEV_USERNAME && password === DEV_PASSWORD) {
-      audioSuccess.play();
-      setTimeout(() => {
-        window.location.href = "add.html";
-      }, 700);
-    } else {
-      devErrorMsg.textContent = "اسم المستخدم أو كلمة المرور للمطور غير صحيحة!";
-      devErrorMsg.style.display = "block";
-      audioError.play();
-    }
-  });
-
-  // تحريك المؤشر الدائري مع حركة الماوس
-  const customCursor = document.getElementById('customCursor');
-  window.addEventListener('mousemove', e => {
-    customCursor.style.left = e.clientX + 'px';
-    customCursor.style.top = e.clientY + 'px';
-  });
-</script>
+  if (userFound) {
+    sessionStorage.setItem("loggedInUser", email);
+    localStorage.setItem("savedEmail", email);
+    localStorage.setItem("usageCount_" + email, usageCount + 1); // زيادة العداد
+    audioSuccess.play();
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 700);
+  } else {
+    errorMsg.textContent = "البريد الإلكتروني أو كلمة المرور غير صحيحة!";
+    errorMsg.style.display = "block";
+    audioError.play();
+  }
+});
+  </script>
 
 </body>
 </html>
+  
