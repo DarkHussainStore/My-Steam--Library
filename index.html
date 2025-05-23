@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>مكتبة STEAM</title>
@@ -145,6 +146,38 @@
       box-shadow: 0 0 12px #00f2ccaa inset;
       font-weight: 700;
     }
+
+
+
+  .back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 999;
+    background-color: var(--top-btn-bg, #333);
+    color: var(--top-btn-color, #fff);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    display: none;
+    transition: all 0.3s ease;
+  }
+
+  .back-to-top:hover {
+    transform: scale(1.1);
+    background-color: var(--top-btn-hover, #555);
+  }
+
+  body.dark-mode .back-to-top {
+    --top-btn-bg: #fff;
+    --top-btn-color: #000;
+    --top-btn-hover: #ddd;
+  }
+
 
     #logoutBtn {
       background: var(--primary-color);
@@ -693,6 +726,10 @@
   </ul>
 </div>
 
+
+<div id="clock" style="position:fixed;top:10px;left:10px;color:#fff;"></div>
+
+
 <div id="topBar" role="banner" aria-label="شريط معلومات المستخدم">
   <div class="siteTitle" aria-label="عنوان الموقع">مكتبة STEAM</div>
   <div class="userSection" aria-label="معلومات المستخدم">
@@ -722,6 +759,11 @@
   </section>
 </div>
 
+
+<div data-aos="fade-up">هذا العنصر يظهر عند التمرير لأعلى</div>
+<div data-aos="fade-down">هذا العنصر يظهر عند التمرير لأسفل</div>
+
+<button id="backToTop" class="back-to-top" title="العودة للأعلى">🢁</button>
 
 
 <canvas id="mouseCanvas"></canvas>
@@ -813,7 +855,7 @@
     {
       id: 'game11',
       name: 'The 312',
-      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1374468790921986078/photo_2025-05-20_22-28-00.jpg?ex=682e2950&is=682cd7d0&hm=1149aa887e00f2f293a257dc80ad0286fb9085440a02a5a108322b0e5e1cd50b&',
+      img: 'https://t.me/c/2558618413/64',
       username: 'vovan159rus',
       password: '94529452',
       type: 'أكشن'
@@ -911,6 +953,13 @@ logoutBtn.addEventListener('click', (e) => {
   e.preventDefault();
   logoutModal.classList.add('show');
 });
+
+
+
+setInterval(() => {
+  const now = new Date();
+  document.getElementById("clock").textContent = now.toLocaleString();
+}, 1000);
 
 // تأكيد الخروج
 confirmLogoutBtn.addEventListener('click', () => {
@@ -1031,6 +1080,17 @@ document.addEventListener('keydown', (e) => {
     renderGames(filtered, searchTerm);
   }
 
+
+ // زر الرجوع لأعلى
+const backToTopBtn = document.getElementById("backToTop");
+window.addEventListener("scroll", () => {
+  backToTopBtn.style.display = window.scrollY > 200 ? "block" : "none";
+});
+backToTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+
   // --- معالجات الأحداث ---
   searchInput.addEventListener('input', filterGames);
   filterCheckboxes.forEach(chk => chk.addEventListener('change', filterGames));
@@ -1111,5 +1171,13 @@ document.addEventListener('keydown', (e) => {
   initParticles();
   animate();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000, // مدة الحركة
+    once: true      // تظهر مرة واحدة فقط
+  });
+</script>
+
 </body>
 </html>
