@@ -399,7 +399,7 @@
 
   // التحقق من عدد مرات الاستخدام
   const usageCount = parseInt(localStorage.getItem("usageCount_" + email)) || 0;
-  if (usageCount >= 99) {
+  if (usageCount >= 30) {
     errorMsg.textContent = "تم استخدام هذا الحساب مسبقًا. لا يمكن استخدامه مرة أخرى.";
     errorMsg.style.display = "block";
     audioError.play();
