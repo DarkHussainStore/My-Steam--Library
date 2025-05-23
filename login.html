@@ -150,6 +150,27 @@
       transform: scale(1.05);
     }
 
+
+
+ /* شكل المؤشر المخصص */
+  #customCursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    pointer-events: none; /* لا يؤثر على التفاعل مع العناصر */
+    transform: translate(-50%, -50%);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    z-index: 9999;
+  }
+
+  /* تأثير عند التحويم */
+  button:hover ~ #customCursor,
+
+
     /* أداة التلميح */
     input[title], button[title] {
       position: relative;
@@ -284,6 +305,7 @@
   
 
   <div id="customCursor" aria-hidden="true"></div>
+  
 
 <script>
   const allowedUsers = [
@@ -335,6 +357,29 @@
       window.location.href = "index.html";
     }
   };
+
+
+
+ const cursor = document.getElementById('customCursor');
+
+  window.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+
+  // مثال: تغيير حجم أو لون المؤشر عند الضغط على الماوس
+  window.addEventListener('mousedown', () => {
+    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+    cursor.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
+  });
+
+  window.addEventListener('mouseup', () => {
+    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+    cursor.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+  });
+
+
+
 
   const audioSuccess = new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg");
   const audioError = new Audio("https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg");
