@@ -43,6 +43,7 @@
       scroll-behavior: smooth;
       overflow-x: hidden;
       position: relative;
+      
     }
 
     button, .card, #mainNav ul li a {
@@ -59,21 +60,22 @@
       top: 0;
       width: 100%;
       height: 48px;
-      background: var(--primary-color);
-      box-shadow: 0 4px 15px rgba(0, 191, 165, 0.7);
+      box-shadow: 0 4px 15px #a7ffebcc;
       display: flex;
       justify-content: center;
       align-items: center;
       z-index: 12000;
       font-weight: 700;
       font-size: 1.1rem;
-      border-bottom-left-radius: 12px;
-      border-bottom-right-radius: 12px;
       transition: background-color 0.3s ease;
     }
 
-    #mainNav:hover {
-      background-color: #00796b;
+
+  #usernameDisplay {
+      align-items: center;
+      border-radius: 10px;
+      box-shadow: inset 0 0 12px #00f2ccbb;
+      color: #a7ffebee;
     }
 
     #mainNav ul {
@@ -103,6 +105,31 @@
 
 
 
+    #logoutBtn {
+  background: var(--primary-color);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: #a7ffebcc;
+  font-weight: 700;
+  font-family: 'Cairo', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 0 5px transparent;
+  transition: all 0.35s ease;
+}
+
+#logoutBtn:hover,
+#logoutBtn:focus {
+  background-color: var(--primary-light);
+        background: linear-gradient(135deg, #f70707, #790000);
+
+  color: var(--primary-color);
+  box-shadow: 0 0 12px #00f2ccdd;
+  transform: scale(1.1);
+}
+
+
+
      /* خلفية الفيديو */
     #bgVideo {
       position: fixed;
@@ -116,24 +143,7 @@
       transition: filter 0.5s ease;
     }
 
-    #topBar {
-      position: fixed;
-      top: 48px;
-      width: 100%;
-      height: 60px;
-      background: linear-gradient(90deg, var(--primary-light), var(--primary-color));
-      box-shadow: 0 5px 18px rgba(0, 77, 64, 0.9);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 30px;
-      font-weight: 700;
-      font-size: 1.15rem;
-      z-index: 11000;
-      border-bottom-left-radius: 12px;
-      border-bottom-right-radius: 12px;
-      transition: all 0.3s ease;
-    }
+   
   nav {
     background-color: #333;
     color: white;
@@ -162,44 +172,31 @@
     font-size: 16px;
   }
 
-  /* زر الهامبرغر */
-  .hamburger {
-    display: none;
-    font-size: 28px;
-    cursor: pointer;
-  }
-
-    #topBar.not-fixed {
-      position: relative;
-      top: auto;
-      box-shadow: none;
-      border-radius: 0;
-    }
-
+  
     #topBar .siteTitle {
-      letter-spacing: 0.1em;
-      font-size: 1.5rem;
-      text-shadow: 0 0 8px #00f2ccbb;
-    }
+  letter-spacing: 0.1em;
+  font-size: 1.5rem;
+  text-shadow: 0 0 8px #00f2ccbb;
+}
 
-    #topBar .userSection {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
+#topBar .userSection {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
 
-    #topBar .usernameDisplay {
-      background: #00796bdd;
-      padding: 8px 20px;
-      border-radius: 24px;
-      font-family: 'Courier New', monospace;
-      max-width: 220px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      box-shadow: 0 0 12px #00f2ccaa inset;
-      font-weight: 700;
-    }
+#topBar .usernameDisplay {
+  background: #00796bdd;
+  padding: 8px 20px;
+  border-radius: 24px;
+  font-family: 'Courier New', monospace;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-shadow: 0 0 12px #00f2ccaa inset;
+  font-weight: 700;
+}
 
 
 
@@ -208,15 +205,14 @@
     bottom: 25px;
     right: 25px;
     z-index: 999;
-    background-color: var(--top-btn-bg, #333);
-    color: var(--top-btn-color, #fff);
+    background-color: #00bfa5;
     border: none;
     border-radius: 50%;
     width: 45px;
     height: 45px;
     font-size: 20px;
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    box-shadow: 0 0 10px #a7ffebcc;
     display: none;
     transition: all 0.3s ease;
   }
@@ -226,33 +222,13 @@
     background-color: var(--top-btn-hover, #555);
   }
 
-  body.dark-mode .back-to-top {
-    --top-btn-bg: #fff;
-    --top-btn-color: #000;
-    --top-btn-hover: #ddd;
-  }
-
-
-    #logoutBtn {
-      background: var(--primary-color);
-      border: none;
-      padding: 8px 20px;
-      border-radius: 24px;
-      color: #a7ffeb;
-      font-weight: 900;
-      box-shadow: 0 0 10px #00bfa5bb;
-      transition: all 0.3s ease;
-      font-family: 'Cairo', sans-serif;
-      position: relative;
+    .back-to-top:focus {
+      outline: 3px solid #00f2cc;
+      outline-offset: 4px;
     }
 
-    #logoutBtn:hover {
-      background-color: var(--primary-light);
-      color: var(--primary-color);
-      box-shadow: 0 0 20px #00f2cc;
-      transform: scale(1.1);
-    }
 
+   
     #mainContainer, header, #searchInput {
       margin-top: 120px;
       width: 90%;
@@ -357,6 +333,7 @@
         background-color 0.4s ease,
         filter 0.6s ease;
       display: flex;
+      
       flex-direction: column;
       will-change: transform;
       outline-offset: 6px;
@@ -365,7 +342,10 @@
     }
 
     .card:hover,
+
+    
     .card:focus-visible {
+      
       transform: scale(1.1);
       box-shadow:
         0 38px 72px rgba(0, 255, 230, 1),
@@ -400,12 +380,14 @@
       transition: transform 0.35s ease, filter 0.35s ease;
       border-top-left-radius: 28px;
       border-top-right-radius: 28px;
+      
     }
 
     .card:hover img,
     .card:focus-visible img {
       transform: scale(1.07);
       filter: drop-shadow(0 0 18px #00f2ccdd);
+      
     }
 
     .card h3 {
@@ -414,6 +396,8 @@
       font-size: 1.7rem;
       text-align: center;
       letter-spacing: 0.05em;
+      
+      
     }
 
     .card .game-type {
@@ -421,9 +405,11 @@
       font-weight: 600;
       text-align: center;
       margin-bottom: 20px;
-      color: #70e6d9cc;
+      color: #f8f8f8;
       letter-spacing: 0.025em;
       font-style: italic;
+            background: linear-gradient(135deg, #00000049, #000000);
+
     }
 
     mark {
@@ -754,34 +740,7 @@
     }
 
 
-    @media (max-width: 768px) {
-    nav ul {
-      display: none; /* اخفاء القائمة الافتراضية */
-      flex-direction: column;
-      width: 100%;
-      background-color: #333;
-      position: absolute;
-      top: 50px;
-      left: 0;
-    }
-    nav ul.active {
-      display: flex;
-    }
-    nav ul li {
-      margin: 10px 0;
-      text-align: center;
-    }
-    .hamburger {
-      display: block;
-    }
-  }
-
-    .hamburger.active {
-      display: block;
-    }
-    .hamburger:not(.active) {
-      display: none;
-    }
+    
   </style>
 </head>
 <body>
@@ -803,10 +762,11 @@
 
 <div id="mainNav" role="navigation" aria-label="القائمة الرئيسية">
   <ul>
-    <li><a href="index.html">الرئيسية</a></li>
     <li><a href="index.html">المكتبة</a></li>
     <li><a href="reals.html">قوانين</a></li>
-    <li><a href="https://salla.sa/SteamLibrarySA">المتجر - اتصل بنا</a></li>
+   <li><button id="logoutBtn">تسجيل خروج</button></li>
+    <div> اسم المستخدم ← <span id="usernameDisplay" aria-live="polite" aria-atomic="true">-</span></div>
+     
   </ul>
 </div>
 
@@ -814,13 +774,7 @@
 <div id="clock" style="position:fixed;top:10px;left:10px;color:#fff;"></div>
 
 
-<div id="topBar" role="banner" aria-label="شريط معلومات المستخدم">
-  <div class="siteTitle" aria-label="عنوان الموقع">مكتبة STEAM</div>
-  <div class="userSection" aria-label="معلومات المستخدم">
-    <div>مرحباً، <span id="usernameDisplay" aria-live="polite" aria-atomic="true">-</span></div>
-    <button id="logoutBtn" aria-label="تسجيل الخروج" title="تسجيل خروج">تسجيل خروج</button>
-  </div>
-</div>
+
 
 <header>مكتبة STEAM</header>
 
@@ -842,20 +796,6 @@
     <!-- البطاقات ستُولد بواسطة الجافاسكريبت -->
   </section>
 </div>
-
-
-
-<nav>
-  <div class="logo">شعاري</div>
-  <div class="hamburger" id="hamburger">&#9776;</div> <!-- زر همبرغر -->
-  <ul id="nav-links">
-    <li><a href="#">الرئيسية</a></li>
-    <li><a href="#">عن الموقع</a></li>
-    <li><a href="#">الخدمات</a></li>
-    <li><a href="#">اتصل بنا</a></li>
-  </ul>
-</nav>
-
 
 <div data-aos="fade-up">هذا العنصر يظهر عند التمرير لأعلى</div>
 <div data-aos="fade-down">هذا العنصر يظهر عند التمرير لأسفل</div>
@@ -926,12 +866,7 @@
     changeBrowserColor('#004d40', defaultBtn);
   });
 
- const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('nav-links');
-
-  hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-  });
+ 
   
   
   // --- نهاية كود تغيير اللون ---
@@ -1154,6 +1089,7 @@ document.addEventListener('keydown', (e) => {
         }
       });
     });
+
 
     document.querySelectorAll('.copy-btn').forEach((btn, idx) => {
       const game = filteredGames[idx % 2 === 0 ? idx/2 : (idx-1)/2];
