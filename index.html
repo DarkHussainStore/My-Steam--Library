@@ -9,7 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-
+<!-- فيديو الخلفية -->
+  <video autoplay muted loop playsinline id="bgVideo" aria-hidden="true" tabindex="-1">
+    <source src="https://cdn.videvo.net/videvo_files/video/free/2013-08/small_watermarked/blue_background_preview.webm" type="video/webm" />
+    <source src="https://cdn.discordapp.com/attachments/1339436496574349404/1374507188868874330/astronaut-on-blooming-planet.960x540.mp4?ex=682f9e92&is=682e4d12&hm=7090d2360168de171b4fff438d115c86b836ebf32d74b2f2e1481f702fbdcfe6&" type="video/mp4" />
+    متصفحك لا يدعم تشغيل الفيديو.
+  </video>
   <style>
     :root {
       --primary-color: #004d40;
@@ -96,6 +101,21 @@
       transform: scale(1.1);
     }
 
+
+
+     /* خلفية الفيديو */
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.35) saturate(1.3) contrast(1.15);
+      transition: filter 0.5s ease;
+    }
+
     #topBar {
       position: fixed;
       top: 48px;
@@ -114,6 +134,40 @@
       border-bottom-right-radius: 12px;
       transition: all 0.3s ease;
     }
+  nav {
+    background-color: #333;
+    color: white;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+  }
+  nav .logo {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+  nav ul li {
+    margin-left: 20px;
+  }
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  /* زر الهامبرغر */
+  .hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+  }
 
     #topBar.not-fixed {
       position: relative;
@@ -698,6 +752,36 @@
         font-size: 0.9rem;
       }
     }
+
+
+    @media (max-width: 768px) {
+    nav ul {
+      display: none; /* اخفاء القائمة الافتراضية */
+      flex-direction: column;
+      width: 100%;
+      background-color: #333;
+      position: absolute;
+      top: 50px;
+      left: 0;
+    }
+    nav ul.active {
+      display: flex;
+    }
+    nav ul li {
+      margin: 10px 0;
+      text-align: center;
+    }
+    .hamburger {
+      display: block;
+    }
+  }
+
+    .hamburger.active {
+      display: block;
+    }
+    .hamburger:not(.active) {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -758,6 +842,19 @@
     <!-- البطاقات ستُولد بواسطة الجافاسكريبت -->
   </section>
 </div>
+
+
+
+<nav>
+  <div class="logo">شعاري</div>
+  <div class="hamburger" id="hamburger">&#9776;</div> <!-- زر همبرغر -->
+  <ul id="nav-links">
+    <li><a href="#">الرئيسية</a></li>
+    <li><a href="#">عن الموقع</a></li>
+    <li><a href="#">الخدمات</a></li>
+    <li><a href="#">اتصل بنا</a></li>
+  </ul>
+</nav>
 
 
 <div data-aos="fade-up">هذا العنصر يظهر عند التمرير لأعلى</div>
@@ -829,7 +926,12 @@
     changeBrowserColor('#004d40', defaultBtn);
   });
 
+ const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
 
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
   
   
   // --- نهاية كود تغيير اللون ---
