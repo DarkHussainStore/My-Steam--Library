@@ -353,9 +353,10 @@
       emailInput.value = savedEmail;
     }
 
-    if (sessionStorage.getItem("loggedInUser")) {
-      window.location.href = "index.html";
-    }
+   if (sessionStorage.getItem("loggedInUser")) {
+  window.location.href = "index.html";
+}
+
   };
 
 
@@ -409,7 +410,7 @@
   const userFound = allowedUsers.find(u => u.email === email && u.password === password);
 
   if (userFound) {
-    sessionStorage.setItem("loggedInUser", email);
+    localStorage.setItem("loggedInUser", user.email);
     localStorage.setItem("savedEmail", email);
     localStorage.setItem("usageCount_" + email, usageCount + 1); // زيادة العداد
     audioSuccess.play();
