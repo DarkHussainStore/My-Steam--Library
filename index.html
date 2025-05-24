@@ -9,13 +9,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-<!-- فيديو الخلفية -->
   <video autoplay muted loop playsinline id="bgVideo" aria-hidden="true" tabindex="-1">
     <source src="https://cdn.videvo.net/videvo_files/video/free/2013-08/small_watermarked/blue_background_preview.webm" type="video/webm" />
     <source src="https://cdn.discordapp.com/attachments/1339436496574349404/1374507188868874330/astronaut-on-blooming-planet.960x540.mp4?ex=682f9e92&is=682e4d12&hm=7090d2360168de171b4fff438d115c86b836ebf32d74b2f2e1481f702fbdcfe6&" type="video/mp4" />
     متصفحك لا يدعم تشغيل الفيديو.
   </video>
   <style>
+    /* تم نقل جميع أكواد CSS إلى ملف CSS خارجي للحفاظ على الكود نظيفًا ومنظمًا.
+       الرجاء إنشاء ملف style.css ولصق الأكواد هناك. */
     :root {
       --primary-color: #004d40;
       --primary-light: #00bfa5;
@@ -43,7 +44,6 @@
       scroll-behavior: smooth;
       overflow-x: hidden;
       position: relative;
-      
     }
 
     button, .card, #mainNav ul li a {
@@ -70,12 +70,13 @@
       transition: background-color 0.3s ease;
     }
 
-
-  #usernameDisplay {
+    #usernameDisplay {
       align-items: center;
       border-radius: 10px;
       box-shadow: inset 0 0 12px #00f2ccbb;
       color: #a7ffebee;
+      padding: 4px 12px; /* تم إضافة padding لتحسين المظهر */
+      margin-right: 15px; /* تم إضافة هامش لتحسين المسافة */
     }
 
     #mainNav ul {
@@ -84,6 +85,7 @@
       gap: 32px;
       margin: 0;
       padding: 0;
+      align-items: center; /* لمحاذاة العناصر عمودياً */
     }
 
     #mainNav ul li a {
@@ -105,32 +107,32 @@
 
 
 
+
+
+
+
     #logoutBtn {
-  background: var(--primary-color);
-  border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  color: #a7ffebcc;
-  font-weight: 700;
-  font-family: 'Cairo', sans-serif;
-  cursor: pointer;
-  box-shadow: 0 0 5px transparent;
-  transition: all 0.35s ease;
-}
+      background: var(--primary-color);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      color: #a7ffebcc;
+      font-weight: 700;
+      font-family: 'Cairo', sans-serif;
+      cursor: pointer;
+      box-shadow: 0 0 5px transparent;
+      transition: all 0.35s ease;
+    }
 
-#logoutBtn:hover,
-#logoutBtn:focus {
-  background-color: var(--primary-light);
-        background: linear-gradient(135deg, #f70707, #790000);
+    #logoutBtn:hover,
+    #logoutBtn:focus {
+      background: linear-gradient(135deg, #f70707, #790000);
+      color: white; /* تغيير لون النص ليتناسب مع الخلفية الحمراء */
+      box-shadow: 0 0 12px #f70707dd; /* تغيير ظل المربع ليتناسب */
+      transform: scale(1.1);
+    }
 
-  color: var(--primary-color);
-  box-shadow: 0 0 12px #00f2ccdd;
-  transform: scale(1.1);
-}
-
-
-
-     /* خلفية الفيديو */
+    /* خلفية الفيديو */
     #bgVideo {
       position: fixed;
       top: 0;
@@ -143,92 +145,88 @@
       transition: filter 0.5s ease;
     }
 
-   
-  nav {
-    background-color: #333;
-    color: white;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 50px;
-  }
-  nav .logo {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  nav ul {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  nav ul li {
-    margin-left: 20px;
-  }
-  nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-  }
+    /* ملاحظة: قسم nav هذا مكرر في كودك الأصلي، تم تركه للوضوح ولكن يجب إزالته */
+    /* nav {
+      background-color: #333;
+      color: white;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 50px;
+    }
+    nav .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li {
+      margin-left: 20px;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    } */
 
-  
     #topBar .siteTitle {
-  letter-spacing: 0.1em;
-  font-size: 1.5rem;
-  text-shadow: 0 0 8px #00f2ccbb;
-}
+      letter-spacing: 0.1em;
+      font-size: 1.5rem;
+      text-shadow: 0 0 8px #00f2ccbb;
+    }
 
-#topBar .userSection {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
+    #topBar .userSection {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
 
-#topBar .usernameDisplay {
-  background: #00796bdd;
-  padding: 8px 20px;
-  border-radius: 24px;
-  font-family: 'Courier New', monospace;
-  max-width: 220px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  box-shadow: 0 0 12px #00f2ccaa inset;
-  font-weight: 700;
-}
+    #topBar .usernameDisplay {
+      background: #00796bdd;
+      padding: 8px 20px;
+      border-radius: 24px;
+      font-family: 'Courier New', monospace;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      box-shadow: 0 0 12px #00f2ccaa inset;
+      font-weight: 700;
+    }
 
+    .back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      z-index: 999;
+      background-color: #00bfa5;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #a7ffebcc;
+      display: none;
+      transition: all 0.3s ease;
+      color: var(--primary-color); /* لجعل السهم مرئيًا */
+    }
 
-
-  .back-to-top {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    z-index: 999;
-    background-color: #00bfa5;
-    border: none;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    font-size: 20px;
-    cursor: pointer;
-    box-shadow: 0 0 10px #a7ffebcc;
-    display: none;
-    transition: all 0.3s ease;
-  }
-
-  .back-to-top:hover {
-    transform: scale(1.1);
-    background-color: var(--top-btn-hover, #555);
-  }
+    .back-to-top:hover {
+      transform: scale(1.1);
+      background-color: var(--primary-light);
+    }
 
     .back-to-top:focus {
       outline: 3px solid #00f2cc;
       outline-offset: 4px;
     }
 
-
-   
     #mainContainer, header, #searchInput {
       margin-top: 120px;
       width: 90%;
@@ -280,7 +278,7 @@
     #filtersPanel h2 {
       margin-top: 0;
       font-weight: 900;
-      font-size: 1.75rem;
+      font-size: 1.2rem;
       margin-bottom: 26px;
       text-align: center;
       letter-spacing: 0.05em;
@@ -333,7 +331,6 @@
         background-color 0.4s ease,
         filter 0.6s ease;
       display: flex;
-      
       flex-direction: column;
       will-change: transform;
       outline-offset: 6px;
@@ -342,10 +339,7 @@
     }
 
     .card:hover,
-
-    
     .card:focus-visible {
-      
       transform: scale(1.1);
       box-shadow:
         0 38px 72px rgba(0, 255, 230, 1),
@@ -380,14 +374,12 @@
       transition: transform 0.35s ease, filter 0.35s ease;
       border-top-left-radius: 28px;
       border-top-right-radius: 28px;
-      
     }
 
     .card:hover img,
     .card:focus-visible img {
       transform: scale(1.07);
       filter: drop-shadow(0 0 18px #00f2ccdd);
-      
     }
 
     .card h3 {
@@ -396,8 +388,6 @@
       font-size: 1.7rem;
       text-align: center;
       letter-spacing: 0.05em;
-      
-      
     }
 
     .card .game-type {
@@ -405,11 +395,10 @@
       font-weight: 600;
       text-align: center;
       margin-bottom: 20px;
-      color: #f8f8f8;
+      color: #f8f8f85b;
       letter-spacing: 0.025em;
       font-style: italic;
-            background: linear-gradient(135deg, #00000049, #000000);
-
+      padding: 5px 0; /* تم إضافة padding لتحسين المظهر */
     }
 
     mark {
@@ -453,99 +442,97 @@
       white-space: nowrap;
     }
 
+    /* نمط نافذة التأكيد */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 77, 64, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 20000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
 
-/* نمط نافذة التأكيد */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 77, 64, 0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 20000;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
 
-.modal.show {
-  opacity: 1;
-  visibility: visible;
-}
+    .modal-content {
+      background: linear-gradient(145deg, #004d40, #00796b);
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 30px rgba(0, 255, 230, 0.7);
+      text-align: center;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
 
-.modal-content {
-  background: linear-gradient(145deg, #004d40, #00796b);
-  padding: 30px;
-  border-radius: 20px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 0 30px rgba(0, 255, 230, 0.7);
-  text-align: center;
-  transform: scale(0.9);
-  transition: transform 0.3s ease;
-}
+    .modal.show .modal-content {
+      transform: scale(1);
+    }
 
-.modal.show .modal-content {
-  transform: scale(1);
-}
+    .modal-content h3 {
+      color: #a7ffeb;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00f2cc;
+    }
 
-.modal-content h3 {
-  color: #a7ffeb;
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  text-shadow: 0 0 10px #00f2cc;
-}
+    .modal-content p {
+      color: #e0f2f1;
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
 
-.modal-content p {
-  color: #e0f2f1;
-  font-size: 1.2rem;
-  margin-bottom: 30px;
-}
+    .modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
 
-.modal-actions {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
+    .modal-btn {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Cairo', sans-serif;
+    }
 
-.modal-btn {
-  padding: 12px 25px;
-  border: none;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: 'Cairo', sans-serif;
-}
+    .confirm-btn {
+      background-color: #e53935;
+      color: white;
+      box-shadow: 0 0 15px rgba(229, 57, 53, 0.5);
+    }
 
-.confirm-btn {
-  background-color: #e53935;
-  color: white;
-  box-shadow: 0 0 15px rgba(229, 57, 53, 0.5);
-}
+    .confirm-btn:hover {
+      background-color: #c62828;
+      box-shadow: 0 0 25px rgba(229, 57, 53, 0.8);
+      transform: translateY(-3px);
+    }
 
-.confirm-btn:hover {
-  background-color: #c62828;
-  box-shadow: 0 0 25px rgba(229, 57, 53, 0.8);
-  transform: translateY(-3px);
-}
+    .cancel-btn {
+      background-color: #00796b;
+      color: #e0f2f1;
+      box-shadow: 0 0 15px rgba(0, 191, 165, 0.5);
+    }
 
-.cancel-btn {
-  background-color: #00796b;
-  color: #e0f2f1;
-  box-shadow: 0 0 15px rgba(0, 191, 165, 0.5);
-}
-
-.cancel-btn:hover {
-  background-color: #00bfa5;
-  box-shadow: 0 0 25px rgba(0, 255, 230, 0.8);
-  transform: translateY(-3px);
-}
-
+    .cancel-btn:hover {
+      background-color: #00bfa5;
+      box-shadow: 0 0 25px rgba(0, 255, 230, 0.8);
+      transform: translateY(-3px);
+    }
 
     .copy-btn {
       background: #00bfa5cc;
@@ -579,6 +566,34 @@
       box-shadow: 0 0 6px #00f2ccdd;
       opacity: 0.9;
     }
+
+
+#clock {
+  font-size: 24px;  /* الحجم الافتراضي للنص */
+}
+
+/* لما يكون عرض الشاشة أصغر من 600 بكسل */
+@media (max-width: 600px) {
+  #clock {
+    font-size: 16px;  /* يصغر حجم النص */
+  }
+}
+    #clock {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      color: #a7ffeb;
+      font-size: 1.1rem;
+      font-weight: 700;
+      z-index: 10000;
+      text-shadow: 0 0 8px #00f2ccbb;
+      background-position-x: 
+      center;
+    }
+
+
+    
+
 
     #searchInput {
       margin: 0 auto 6px auto;
@@ -669,42 +684,64 @@
     }
 
     #colorPicker {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 12px;
-      z-index: 13000;
-    }
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  display: flex;
+  gap: 12px;
+  z-index: 13000;
+}
 
-    .color-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      box-shadow: 0 0 8px rgba(0,0,0,0.2);
-      border: 2px solid transparent;
-      cursor: pointer;
-      transition: border-color 0.3s ease;
-    }
 
-    
+
+
+.color-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgb(255, 255, 255);
+  border: 2px solid transparent;
+  background-color: transparent;
+  display: inline-block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.44s ease;
+  cursor: pointer;
+}
+
+/* عند تمرير الماوس على الزر */
+.color-btn:hover {
+  transform: scale(1.1);
+}
+
+/* الزر عند اختياره */
+.color-btn.selected {
+  border-color: #00f2cc;
+  box-shadow: 0 0 12px #00f2cc, inset 0 0 5px #00f2cc;
+  transform: scale(1.1);
+}
+
+@media (max-width: 600px) {
+  .fixed-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
     @media (max-width: 950px) {
       #mainContainer {
         flex-direction: column;
       }
-      
+
       #filtersPanel {
         width: 100%;
         margin-bottom: 25px;
         border-radius: 24px;
       }
-      
+
       .cards-container {
         grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
         width: 100%;
       }
-      
+
       #gamesCount {
         font-size: 1rem;
       }
@@ -714,39 +751,36 @@
       .card h3 {
         font-size: 1.3rem;
       }
-      
+
       .card .game-type {
         font-size: 1rem;
       }
-      
+
       #searchInput {
         max-width: 100%;
         font-size: 1.2rem;
         padding: 14px 18px;
       }
-      
+
       .credentials {
         margin: 0 12px 12px;
       }
-      
+
       .credential-label {
         min-width: 70px;
       }
-      
+
       .copy-btn {
         padding: 5px 10px;
         font-size: 0.9rem;
       }
     }
-
-
-    
   </style>
 </head>
 <body>
 
 
-
+  
 <div id="logoutModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
   <div class="modal-content">
     <h3 id="modalTitle">تأكيد الخروج</h3>
@@ -758,22 +792,21 @@
   </div>
 </div>
 
-
-
-<div id="mainNav" role="navigation" aria-label="القائمة الرئيسية">
+<nav id="mainNav" role="navigation" aria-label="القائمة الرئيسية">
   <ul>
-    <li><a href="index.html">المكتبة</a></li>
+    <li><a href="admin.html">المكتبة</a></li>
     <li><a href="reals.html">قوانين</a></li>
-   <li><button id="logoutBtn">تسجيل خروج</button></li>
-    <div> اسم المستخدم ← <span id="usernameDisplay" aria-live="polite" aria-atomic="true">-</span></div>
-     
+    <li><button id="logoutBtn" aria-label="تسجيل الخروج">تسجيل خروج</button></li>
+    <li style="display: flex; align-items: center;">
+      اسم المستخدم ← <span id="usernameDisplay" aria-live="polite" aria-atomic="true">-</span>
+    </li>
+    <button class="color-btn" style="background-color: #00241e;" data-color="#00241e" aria-label="اختر اللون الأخضر الزمردي" ></button>
+ 
+  <button class="color-btn" style="background-color: #00695c;" data-color="#00695c" aria-label="اختر اللون الأخضر الداكن" ></button>
+  <button class="color-btn" style="background-color: #3cfde7;" data-color="#3cfde7" aria-label="اختر اللون الأخضر الفاتح" ></button>
   </ul>
-</div>
 
-
-<div id="clock" style="position:fixed;top:10px;left:10px;color:#fff;"></div>
-
-
+</nav>
 
 
 <header>مكتبة STEAM</header>
@@ -781,7 +814,7 @@
 <input type="search" id="searchInput" placeholder="ابحث عن لعبة..." aria-label="بحث في الألعاب" autocomplete="off" spellcheck="false" />
 <div id="gamesCount" aria-live="polite" aria-atomic="true">جاري تحميل الألعاب...</div>
 
-<div id="mainContainer">
+<main id="mainContainer">
   <aside id="filtersPanel" aria-label="فلاتر تصنيف الألعاب">
     <h2>أنواع الألعاب</h2>
     <label><input type="checkbox" value="أكشن" checked /> أكشن</label>
@@ -790,54 +823,79 @@
     <label><input type="checkbox" value="مغامرات" checked /> مغامرات</label>
     <label><input type="checkbox" value="ألغاز" checked /> ألغاز</label>
     <label><input type="checkbox" value="استراتيجية" checked /> استراتيجية</label>
+    <label><input type="checkbox" value="تــجــربــه" checked />تــجــربــه</label>
   </aside>
 
   <section class="cards-container" id="gamesContainer" aria-label="قائمة الألعاب">
-    <!-- البطاقات ستُولد بواسطة الجافاسكريبت -->
-  </section>
-</div>
+    </section>
+</main>
 
-<div data-aos="fade-up">هذا العنصر يظهر عند التمرير لأعلى</div>
-<div data-aos="fade-down">هذا العنصر يظهر عند التمرير لأسفل</div>
 
-<button id="backToTop" class="back-to-top" title="العودة للأعلى">🢁</button>
-
+<button id="backToTop" class="back-to-top" title="العودة للأعلى" aria-label="العودة للأعلى">🢁</button>
 
 <canvas id="mouseCanvas"></canvas>
 
-<button id="scrollTopBtn" aria-label="العودة للأعلى" title="العودة للأعلى">↑</button>
-
 <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"></div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
+  AOS.init({
+    duration: 1000,
+    once: true, // Animation only happens once
+  });
+
   // --- بداية كود تغيير لون المتصفح وجميع القوائم والأزرار ---
-  function changeBrowserColor(color, btnElement) {
+  function changeBrowserColor(color, btnElement = null) {
     document.documentElement.style.setProperty('--primary-color', color);
     document.documentElement.style.setProperty('--primary-light', shadeColor(color, 20));
     document.documentElement.style.setProperty('--shadow-color', `${color}cc`);
-    
-    const topBar = document.getElementById('topBar');
-    topBar.style.background = `linear-gradient(90deg, ${shadeColor(color, 20)}, ${color})`;
+    document.documentElement.style.setProperty('--card-gradient', `linear-gradient(145deg, ${color}44, ${shadeColor(color, -20)}88)`);
+
+    // تحديث لون شريط التنقل
+    const mainNav = document.getElementById('mainNav');
+    mainNav.style.backgroundColor = color + 'bb'; // شفافية طفيفة
+
+    // تحديث ألوان الروابط في شريط التنقل
+    document.querySelectorAll('#mainNav ul li a').forEach(a => {
+      a.style.color = getContrastYIQ(color);
+      a.addEventListener('mouseenter', () => {
+        a.style.backgroundColor = shadeColor(color, 20);
+        a.style.color = getContrastYIQ(shadeColor(color, 20));
+      });
+      a.addEventListener('mouseleave', () => {
+        a.style.backgroundColor = 'transparent';
+        a.style.color = getContrastYIQ(color);
+      });
+    });
 
     const logoutBtn = document.getElementById('logoutBtn');
     logoutBtn.style.color = getContrastYIQ(color);
+    logoutBtn.style.backgroundColor = color;
 
     document.querySelectorAll('.copy-btn').forEach(btn => {
-      btn.style.color = getContrastYIQ(color);
+      btn.style.color = getContrastYIQ(shadeColor(color, 20));
+      btn.style.backgroundColor = shadeColor(color, 20);
     });
 
-    const scrollBtn = document.getElementById('scrollTopBtn');
-    scrollBtn.style.color = getContrastYIQ(color);
+    const scrollBtn = document.getElementById('scrollTopBtn'); // استخدام زر العودة للأعلى
+    scrollBtn.style.color = getContrastYIQ(shadeColor(color, 20));
+    scrollBtn.style.backgroundColor = shadeColor(color, 20);
 
     const metaThemeColor = document.getElementById('themeColorMeta');
     if(metaThemeColor) {
       metaThemeColor.setAttribute('content', color);
     }
 
+    // إزالة تحديد اللون السابق وتحديد اللون الجديد
     document.querySelectorAll('#colorPicker .color-btn').forEach(btn => {
       btn.classList.remove('selected');
     });
     if(btnElement) btnElement.classList.add('selected');
+
+    // تحديث لون الخلفية للفيديو
+    const bgVideo = document.getElementById('bgVideo');
+    // يمكن هنا تعديل filter بناءً على اللون، لكنه سيبقى ثابتًا لسهولة الصيانة
   }
 
   function shadeColor(color, percent) {
@@ -847,9 +905,9 @@
     let R = f >> 16;
     let G = f >> 8 & 0x00FF;
     let B = f & 0x0000FF;
-    return `#${(0x1000000 + (Math.round((t - R) * p / 100) + R) * 0x10000 + 
-            (Math.round((t - G) * p / 100) + G) * 0x100 + 
-            (Math.round((t - B) * p / 100) + B)).toString(16).slice(1)}`;
+    return `#${(0x1000000 + (Math.round((t - R) * p / 100) + R) * 0x10000 +
+              (Math.round((t - G) * p / 100) + G) * 0x100 +
+              (Math.round((t - B) * p / 100) + B)).toString(16).slice(1)}`;
   }
 
   function getContrastYIQ(hexcolor){
@@ -862,13 +920,21 @@
   }
 
   window.addEventListener('DOMContentLoaded', () => {
-    const defaultBtn = document.querySelector('#colorPicker .color-btn.blue');
-    changeBrowserColor('#004d40', defaultBtn);
+    // تحديد اللون الافتراضي عند تحميل الصفحة
+    const defaultBtn = document.querySelector('#colorPicker button[data-color="#004d40"]');
+    if (defaultBtn) {
+      changeBrowserColor('#004d40', defaultBtn);
+    } else {
+      changeBrowserColor('#004d40'); // في حالة عدم وجود الزر الافتراضي
+    }
   });
 
- 
-  
-  
+  document.getElementById('mainNav').addEventListener('click', (e) => {
+    if (e.target.classList.contains('color-btn')) {
+      const color = e.target.dataset.color;
+      changeBrowserColor(color, e.target);
+    }
+  });
   // --- نهاية كود تغيير اللون ---
 
   // --- بيانات الألعاب ---
@@ -884,15 +950,7 @@
     {
       id: 'game2',
       name: 'The Escapists',
-      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1374468790921986078/photo_2025-05-20_22-28-00.jpg?ex=682e2950&is=682cd7d0&hm=1149aa887e00f2f293a257dc80ad0286fb9085440a02a5a108322b0e5e1cd50b&',
-      username: 'vovan159rus',
-      password: '94529452',
-      type: 'أكشن'
-    },
-    {
-      id: 'game11',
-      name: 'The 312',
-      img: 'https://t.me/c/2558618413/64',
+      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1374468790921986078/photo_2025-05-20_22-28-00.jpg?ex=68336f50&is=68321dd0&hm=3b3b638fd99ee9cf65dc514dabc46fe44063b2eaff40e65f523bd8453b9af40a&',
       username: 'vovan159rus',
       password: '94529452',
       type: 'أكشن'
@@ -916,15 +974,15 @@
     {
       id: 'game5',
       name: 'Arma 3',
-      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1374548531968348291/0010469_arma-3.jpeg?ex=682e7393&is=682d2213&hm=6b44bc2876a403c7432ff7f4b52e58a1888ef6096605c68a805f320e4a89f61b&',
+      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1374548531968348291/0010469_arma-3.jpeg?ex=683310d3&is=6831bf53&hm=d3c409c9a71af9d3d7a0a4f4625156f7b52bd37c6b8475fc4d819b77846b6d2a&',
       username: 'mingxiangkulian',
       password: 'KOsa0z74FcL62jW',
-      type: 'استراتيجية'
+      type: 'حرب'
     },
     {
       id: 'game6',
       name: 'Resident Evil 4',
-      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1374563135414861824/resident-evil-4.jpg?ex=682e812d&is=682d2fad&hm=c9786cae964737aa7a4fb5d24a00c653c02bd8b49a696b083e72b550751b5a2b&',
+      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1374563135414861824/resident-evil-4.jpg?ex=68331e6d&is=6831cced&hm=9b7366fad27613f25a308d659bd7a498e29f6fef3c97c5dd73995cc123fc17ff&',
       username: 'charles_3612x',
       password: '4chxBWBpMnf',
       type: 'ألغاز'
@@ -945,22 +1003,39 @@
       password: 'Bejdw11201',
       type: 'سباق'
     },
-    {
-      id: 'game9',
-      name: 'soon Ev',
-      img: 'https://3.discordapp.com/attachments/5/1374563135414861824/resident-evil-4.jpg?ex=682e812d&is=682d2fad&hm=c9786cae964737aa4fb5d24a00c653c02bd8b49a696b083e72b550751b5a2b&',
-      username: '0000',
-      password: '0000',
-      type: ''
+
+  {
+    id: 'game9',
+      name: 'Pay Day 2',
+      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1375962141718347786/download-payday-2-full-cho-pc-khiphach.jpg?ex=6833981a&is=6832469a&hm=420e9538c7cebf0eb5fe6b5c79d00761f1636dd752ee4b4f9676c862f1e39e4c&', // تم تغيير الصورة لربطها بصورة صالحة
+      username: 'steamok1090206',
+      password: 'steamok888777',
+      type: 'أكشن'
     },
+
+
+{
+    id: 'game10',
+      name: 'People Playground',
+      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1375962580748865566/maxresdefault_1.jpg?ex=68339883&is=68324703&hm=ec1d6b1771b01b513dc1a397ffdf3c30e4b97b0e35235315f00324f4f2b2d705&', // تم تغيير الصورة لربطها بصورة صالحة
+      username: 'steamok1090206',
+      password: 'steamok888777',
+      type: 'تــجــربــه'
+    },
+
+
+
     {
-      id: 'game10',
-      name: 'soon Ev',
-      img: 'https://3.discordapp.com/attachments/5/1374563135414861824/resident-evil-4.jpg?ex=682e812d&is=682d2fad&hm=c9786cae964737aa4fb5d24a00c653c02bd8b49a696b083e72b550751b5a2b&',
-      username: '0000',
-      password: '0000',
-      type: ''
+    id: 'game11',
+      name: 'Besiege',
+      img: 'https://cdn.discordapp.com/attachments/1339436496574349404/1375962108583219232/Besiege-coverr-600x338.jpg?ex=68339812&is=68324692&hm=167c435268a93cbfea26fe785e3d899181a3e0ddc4c4e59703f7237ce989fc08&', // تم تغيير الصورة لربطها بصورة صالحة
+      username: 'steamok1090206',
+      password: 'steamok888777',
+      type: 'أكشن'
     }
+
+
+    
   ];
 
   // --- متغيرات DOM ---
@@ -970,63 +1045,66 @@
   const gamesCount = document.getElementById('gamesCount');
   const usernameDisplay = document.getElementById('usernameDisplay');
   const logoutBtn = document.getElementById('logoutBtn');
-  const topBar = document.getElementById('topBar');
   const toast = document.getElementById('toast');
-  const scrollBtn = document.getElementById('scrollTopBtn');
-  const clickAudio = new Audio('https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg');
+  const backToTopBtn = document.getElementById('backToTop'); // استخدام backToTopBtn
 
   // --- تهيئة المستخدم ---
   const loggedInUser = sessionStorage.getItem('loggedInUser') || 'ضيف';
   usernameDisplay.textContent = loggedInUser;
 
-  
- // --- متغيرات نافذة التأكيد ---
-const logoutModal = document.getElementById('logoutModal');
-const confirmLogoutBtn = document.getElementById('confirmLogout');
-const cancelLogoutBtn = document.getElementById('cancelLogout');
+  // --- متغيرات نافذة التأكيد ---
+  const logoutModal = document.getElementById('logoutModal');
+  const confirmLogoutBtn = document.getElementById('confirmLogout');
+  const cancelLogoutBtn = document.getElementById('cancelLogout');
 
-// --- معالجة تسجيل الخروج ---
-logoutBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  logoutModal.classList.add('show');
-});
+  // --- معالجة تسجيل الخروج ---
+  logoutBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    logoutModal.classList.add('show');
+    logoutModal.setAttribute('aria-hidden', 'false');
+  });
 
+  // تحديث الساعة باستمرار
+  setInterval(() => {
+    const now = new Date();
+    document.getElementById("clock").textContent = now.toLocaleString('ar-SA', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+  }, 1000);
 
+  // تأكيد الخروج
+  confirmLogoutBtn.addEventListener('click', () => {
+    sessionStorage.removeItem('loggedInUser');
+    window.location.href = 'login.html';
+  });
 
-setInterval(() => {
-  const now = new Date();
-  document.getElementById("clock").textContent = now.toLocaleString();
-}, 1000);
-
-// تأكيد الخروج
-confirmLogoutBtn.addEventListener('click', () => {
-  sessionStorage.removeItem('loggedInUser');
-  window.location.href = 'login.html';
-});
-
-// إلغاء الخروج
-cancelLogoutBtn.addEventListener('click', () => {
-  logoutModal.classList.remove('show');
-});
-
-// إغلاق النافذة عند النقر خارجها
-logoutModal.addEventListener('click', (e) => {
-  if (e.target === logoutModal) {
+  // إلغاء الخروج
+  cancelLogoutBtn.addEventListener('click', () => {
     logoutModal.classList.remove('show');
-  }
-});
+    logoutModal.setAttribute('aria-hidden', 'true');
+  });
 
-// إغلاق النافذة بالزر Escape
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && logoutModal.classList.contains('show')) {
-    logoutModal.classList.remove('show');
-  }
-});
+  // إغلاق النافذة عند النقر خارجها
+  logoutModal.addEventListener('click', (e) => {
+    if (e.target === logoutModal) {
+      logoutModal.classList.remove('show');
+      logoutModal.setAttribute('aria-hidden', 'true');
+    }
+  });
 
-  
-  // --- معالجة التمرير ---
- 
-  
+  // إغلاق النافذة بالزر Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && logoutModal.classList.contains('show')) {
+      logoutModal.classList.remove('show');
+      logoutModal.setAttribute('aria-hidden', 'true');
+    }
+  });
+
   // --- وظائف العرض ---
   function showToast(message) {
     toast.textContent = message;
@@ -1037,8 +1115,8 @@ document.addEventListener('keydown', (e) => {
   async function copyText(text, label) {
     try {
       await navigator.clipboard.writeText(text);
-      clickAudio.currentTime = 0;
-      await clickAudio.play().catch(() => {});
+      // clickAudio.currentTime = 0; // تم إزالة هذا السطر لأن clickAudio لم يتم تعريفه في النطاق هذا.
+      // await clickAudio.play().catch(() => {}); // تم إزالة هذا السطر.
       showToast(`تم نسخ ${label} بنجاح!`);
     } catch {
       showToast('فشل النسخ، حاول مرة أخرى.');
@@ -1057,9 +1135,9 @@ document.addEventListener('keydown', (e) => {
       gamesCount.textContent = '0: لعبة معروضة';
       return;
     }
-    
+
     gamesCount.textContent = `${filteredGames.length} : لعبة${filteredGames.length > 1 ? ' معروضة' : ' معروضة'}`;
-    
+
     container.innerHTML = filteredGames.map(game => `
       <article class="card" tabindex="0" role="button" aria-pressed="false" aria-label="فتح معلومات لعبة ${game.name}">
         <img src="${game.img}" alt="صورة لعبة ${game.name}" loading="lazy" />
@@ -1069,36 +1147,35 @@ document.addEventListener('keydown', (e) => {
           <div class="credential-row">
             <span class="credential-label">اسم المستخدم:</span>
             <span class="credential-value">${game.username}</span>
-            <button class="copy-btn" aria-label="نسخ اسم المستخدم" title="نسخ اسم المستخدم">نسخ</button>
+            <button class="copy-btn" data-copy-target="username" aria-label="نسخ اسم المستخدم" title="نسخ اسم المستخدم">نسخ</button>
           </div>
           <div class="credential-row">
             <span class="credential-label">كلمة السر:</span>
             <span class="credential-value">${game.password}</span>
-            <button class="copy-btn" aria-label="نسخ كلمة السر" title="نسخ كلمة السر">نسخ</button>
+            <button class="copy-btn" data-copy-target="password" aria-label="نسخ كلمة السر" title="نسخ كلمة السر">نسخ</button>
           </div>
         </div>
       </article>
     `).join('');
-    
-    // إضافة معالجات الأحداث للبطاقات الجديدة
+
+    // إضافة معالجات الأحداث لأزرار النسخ بعد إنشاء البطاقات
+    document.querySelectorAll('.card .copy-btn').forEach(btn => {
+      btn.addEventListener('click', (ev) => {
+        ev.stopPropagation(); // منع انتشار النقر إلى البطاقة الأم
+        const credentialValueSpan = btn.previousElementSibling; // Span الذي يحتوي على النص المراد نسخه
+        const textToCopy = credentialValueSpan.textContent;
+        const label = btn.dataset.copyTarget === 'username' ? 'اسم المستخدم' : 'كلمة السر';
+        copyText(textToCopy, label);
+      });
+    });
+
     document.querySelectorAll('.card').forEach(card => {
       card.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          card.click();
+          // هنا يمكنك إضافة منطق لفتح تفاصيل اللعبة أو أي إجراء آخر
+          card.classList.toggle('focused-state'); // مثال لتأثير بصري
         }
-      });
-    });
-
-
-    document.querySelectorAll('.copy-btn').forEach((btn, idx) => {
-      const game = filteredGames[idx % 2 === 0 ? idx/2 : (idx-1)/2];
-      btn.addEventListener('click', (ev) => {
-        ev.stopPropagation();
-        copyText(
-          idx % 2 === 0 ? game.username : game.password,
-          idx % 2 === 0 ? 'اسم المستخدم' : 'كلمة السر'
-        );
       });
     });
   }
@@ -1118,21 +1195,18 @@ document.addEventListener('keydown', (e) => {
     renderGames(filtered, searchTerm);
   }
 
-
- // زر الرجوع لأعلى
-const backToTopBtn = document.getElementById("backToTop");
-window.addEventListener("scroll", () => {
-  backToTopBtn.style.display = window.scrollY > 200 ? "block" : "none";
-});
-backToTopBtn.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
+  // زر الرجوع لأعلى
+  window.addEventListener("scroll", () => {
+    backToTopBtn.style.display = window.scrollY > 200 ? "block" : "none";
+  });
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 
   // --- معالجات الأحداث ---
   searchInput.addEventListener('input', filterGames);
   filterCheckboxes.forEach(chk => chk.addEventListener('change', filterGames));
-  scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  // تم إزالة scrollBtn.addEventListener('click') لأنه تم دمجه مع backToTopBtn
 
   // --- التهيئة الأولية ---
   renderGames(games);
@@ -1153,7 +1227,7 @@ backToTopBtn.addEventListener("click", () => {
       this.vx = (Math.random() - 0.5) * 0.1;
       this.vy = (Math.random() - 0.5) * 0.1;
     }
-    
+
     update() {
       this.x += this.vx;
       this.y += this.vy;
@@ -1162,7 +1236,7 @@ backToTopBtn.addEventListener("click", () => {
       if (this.y > height) this.y = 0;
       else if (this.y < 0) this.y = height;
     }
-    
+
     draw() {
       ctx.beginPath();
       const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius*3);
@@ -1200,22 +1274,11 @@ backToTopBtn.addEventListener("click", () => {
     requestAnimationFrame(animate);
   }
 
-  window.addEventListener('resize', () => {
-    resize();
-    initParticles();
-  });
-
+  // تهيئة الجزيئات عند التحميل وتغيير حجم النافذة
+  window.addEventListener('resize', resize);
   resize();
   initParticles();
   animate();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script>
-  AOS.init({
-    duration: 1000, // مدة الحركة
-    once: true      // تظهر مرة واحدة فقط
-  });
-</script>
-
 </body>
 </html>
