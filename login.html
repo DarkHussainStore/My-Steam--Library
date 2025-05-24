@@ -343,20 +343,70 @@
   ];
 
   const loginBtn = document.getElementById("loginBtn");
-  const errorMsg = document.getElementById("errorMsg");
-  const emailInput = document.getElementById("email");
-  const passwordInput = document.getElementById("password");
+const errorMsg = document.getElementById("errorMsg");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
 
-  window.onload = () => {
-    const savedEmail = localStorage.getItem("savedEmail");
-    if (savedEmail) {
-      emailInput.value = savedEmail;
-    }
+// التحقق من الجلسة الحالية
+window.onload = () => {
+  const activeUser = localStorage.getItem("activeUser");
+  const sessionUser = sessionStorage.getItem("loggedInUser");
 
-    if (sessionStorage.getItem("loggedInUser")) {
-      window.location.href = "index.html";
+  if (activeUser && !sessionUser) {
+    // تم تسجيل دخول سابقًا، نعطيه الدخول دون طرده
+    sessionStorage.setItem("loggedInUser", activeUser);
+    window.location.href = "home.html"; // غيّر هذا إلى صفحة موقعك
+  }
+};
+
+// تسجيل الدخول
+loginBtn.addEventListener("click", () => {
+  const email = emailInput.value.trim();
+  const password = passwordInput.value.trim();
+  const user = allowedUsers.find(
+    u => u.email === email && u.password === password
+  );
+
+  if (!user) {
+    errorMsg.innerText = "البريد أو كلمة المرور غير صحيحة";
+    errorMsg.style.display = "block";
+    return;
+  }
+
+  const activeSession = localStorage.getItem(`active-${email}`);
+  if (activeSession && activeSession !== sessionStorage.getItem("sessionId")) {
+    errorMsg.innerText = "هذا الحساب مستخدم حاليًا في نافذة أو جهاز آخر";
+    errorMsg.style.display = "block";
+    return;
+  }
+
+  // تحديد session ID فريدة لكل جلسة
+  const sessionId = Date.now().toString();
+  sessionStorage.setItem("sessionId", sessionId);
+
+  // حفظ الجلسة
+  sessionStorage.setItem("loggedInUser", email);
+  localStorage.setItem("savedEmail", email);
+  localStorage.setItem("activeUser", email);
+  localStorage.setItem(`active-${email}`, sessionId);
+
+  window.location.href = "index.html"; // غيّر هذا إلى صفحتك بعد تسجيل الدخول
+});
+
+// عندما يغلق المستخدم الصفحة، يتم إنهاء الجلسة تلقائيًا
+window.addEventListener("beforeunload", () => {
+  const email = sessionStorage.getItem("loggedInUser");
+  const sessionId = sessionStorage.getItem("sessionId");
+
+  if (email && sessionId) {
+    const currentActive = localStorage.getItem(`active-${email}`);
+    if (currentActive === sessionId) {
+      localStorage.removeItem(`active-${email}`);
     }
-  };
+    sessionStorage.removeItem("loggedInUser");
+    sessionStorage.removeItem("sessionId");
+  }
+});
 
 
 
@@ -422,6 +472,10 @@
     audioError.play();
   }
 });
+
+
+
+
   </script>
 
 </body>
