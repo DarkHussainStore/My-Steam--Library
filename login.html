@@ -150,26 +150,20 @@
       transform: scale(1.05);
     }
 
-
-
- /* شكل المؤشر المخصص */
-  #customCursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 20px;
-    height: 20px;
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 50%;
-    pointer-events: none; /* لا يؤثر على التفاعل مع العناصر */
-    transform: translate(-50%, -50%);
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    z-index: 9999;
-  }
-
-  /* تأثير عند التحويم */
-  button:hover ~ #customCursor,
-
+    /* شكل المؤشر المخصص */
+    #customCursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      z-index: 9999;
+    }
 
     /* أداة التلميح */
     input[title], button[title] {
@@ -235,9 +229,6 @@
       animation: errorFlash 1s ease 0 3;
     }
 
-    /* تسجيل دخول المطور */
-    
-
     /* الرسوم المتحركة */
     @keyframes fadeInUp {
       from {
@@ -302,15 +293,12 @@
     <div id="errorMsg" role="alert" aria-live="assertive"></div>
   </div>
 
-  
-
   <div id="customCursor" aria-hidden="true"></div>
-  
 
 <script>
   const allowedUsers = [
-    { email: "steam911@gmail.com", password: "pass1234" }, //تم استخدامه
-    { email: "steam1@gmail.com", password: "pass1234" }, //تم استخدامه
+    { email: "steam911@gmail.com", password: "pass1234" },
+    { email: "steam1@gmail.com", password: "pass1234" },
     { email: "steam2@gmail.com", password: "pass1234" },
     { email: "steam3@gmail.com", password: "pass1234" },
     { email: "steam4@gmail.com", password: "pass1234" },
@@ -337,87 +325,159 @@
     { email: "steam25@sa.com", password: "pass1234" },
     { email: "steam26@sa.com", password: "pass1234" },
     { email: "steam27@sa.com", password: "pass1234" },
-
-
     { email: "admin@yourdomain.com", password: "AdminPass!" }
   ];
 
   const loginBtn = document.getElementById("loginBtn");
-const errorMsg = document.getElementById("errorMsg");
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
+  const errorMsg = document.getElementById("errorMsg");
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const audioSuccess = new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg");
+  const audioError = new Audio("https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg");
 
-// التحقق من الجلسة الحالية
-window.onload = () => {
-  const activeUser = localStorage.getItem("activeUser");
-  const sessionUser = sessionStorage.getItem("loggedInUser");
-
-  if (activeUser && !sessionUser) {
-    // تم تسجيل دخول سابقًا، نعطيه الدخول دون طرده
-    sessionStorage.setItem("loggedInUser", activeUser);
-    window.location.href = "index.html"; // غيّر هذا إلى صفحة موقعك
-  }
-};
-
-// تسجيل الدخول
-loginBtn.addEventListener("click", () => {
-  const email = emailInput.value.trim();
-  const password = passwordInput.value.trim();
-  const user = allowedUsers.find(
-    u => u.email === email && u.password === password
-  );
-
-  if (!user) {
-    errorMsg.innerText = "البريد أو كلمة المرور غير صحيحة";
-    errorMsg.style.display = "block";
-    return;
+  // توليد معرف فريد للجلسة
+  function generateSessionId() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
   }
 
-  const activeSession = localStorage.getItem(`active-${email}`);
-  if (activeSession && activeSession !== sessionStorage.getItem("sessionId")) {
-    errorMsg.innerText = "هذا الحساب مستخدم حاليًا في نافذة أو جهاز آخر";
-    errorMsg.style.display = "block";
-    return;
-  }
-
-  // تحديد session ID فريدة لكل جلسة
-  const sessionId = Date.now().toString();
-  sessionStorage.setItem("sessionId", sessionId);
-
-  // حفظ الجلسة
-  sessionStorage.setItem("loggedInUser", email);
-  localStorage.setItem("savedEmail", email);
-  localStorage.setItem("activeUser", email);
-  localStorage.setItem(`active-${email}`, sessionId);
-
-  window.location.href = "index.html"; // غيّر هذا إلى صفحتك بعد تسجيل الدخول
-});
-
-// عندما يغلق المستخدم الصفحة، يتم إنهاء الجلسة تلقائيًا
-window.addEventListener("beforeunload", () => {
-  const email = sessionStorage.getItem("loggedInUser");
-  const sessionId = sessionStorage.getItem("sessionId");
-
-  if (email && sessionId) {
-    const currentActive = localStorage.getItem(`active-${email}`);
-    if (currentActive === sessionId) {
-      localStorage.removeItem(`active-${email}`);
+  // التحقق من الجلسة الحالية عند تحميل الصفحة
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedEmail = localStorage.getItem("savedEmail");
+    const sessionId = sessionStorage.getItem("sessionId");
+    const activeSession = localStorage.getItem(`active-${savedEmail}`);
+    
+    // إذا كان هناك جلسة نشطة لنفس المستخدم ونفس المعرف
+    if (savedEmail && sessionId && activeSession === sessionId) {
+      // السماح بالدخول تلقائياً
+      sessionStorage.setItem("loggedInUser", savedEmail);
+      window.location.href = "index.html";
     }
-    sessionStorage.removeItem("loggedInUser");
-    sessionStorage.removeItem("sessionId");
+    
+    // ملء البريد الإلكتروني المحفوظ إن وجد
+    if (savedEmail) {
+      emailInput.value = savedEmail;
+    }
+  });
+
+  // تسجيل الدخول
+  loginBtn.addEventListener("click", () => {
+    const email = emailInput.value.trim().toLowerCase();
+    const password = passwordInput.value.trim();
+    errorMsg.style.display = "none";
+    
+    if (!email || !password) {
+      showError("يرجى ملء جميع الحقول!");
+      return;
+    }
+
+    const user = allowedUsers.find(u => u.email === email && u.password === password);
+    
+    if (!user) {
+      showError("البريد أو كلمة المرور غير صحيحة");
+      return;
+    }
+
+    // التحقق من عدد مرات الاستخدام
+    const usageCount = parseInt(localStorage.getItem("usageCount_" + email)) || 0;
+    if (usageCount >= 30) {
+      showError("تم استخدام هذا الحساب مسبقًا. لا يمكن استخدامه مرة أخرى.");
+      return;
+    }
+
+    const activeSession = localStorage.getItem(`active-${email}`);
+    const currentSessionId = sessionStorage.getItem("sessionId");
+    
+    // إذا كان الحساب مستخدماً بالفعل في جلسة أخرى
+    if (activeSession && activeSession !== currentSessionId) {
+      showError("هذا الحساب مستخدم حاليًا في نافذة أو جهاز آخر");
+      return;
+    }
+
+    // إنشاء جلسة جديدة
+    const sessionId = currentSessionId || generateSessionId();
+    
+    // حفظ بيانات الجلسة
+    sessionStorage.setItem("sessionId", sessionId);
+    sessionStorage.setItem("loggedInUser", email);
+    localStorage.setItem("savedEmail", email);
+    localStorage.setItem(`active-${email}`, sessionId);
+    localStorage.setItem("usageCount_" + email, usageCount + 1);
+    
+    // تشغيل صوت النجاح والانتقال للصفحة الرئيسية
+    audioSuccess.play();
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 700);
+  });
+
+  // إدارة أحداث إغلاق الصفحة
+  window.addEventListener('beforeunload', () => {
+    const email = sessionStorage.getItem("loggedInUser");
+    const sessionId = sessionStorage.getItem("sessionId");
+    
+    if (email && sessionId) {
+      const currentActive = localStorage.getItem(`active-${email}`);
+      
+      // إذا كان المستخدم لا يزال في نفس الجلسة
+      if (currentActive === sessionId) {
+        // لا نقوم بإزالة الجلسة النشطة هنا حتى يتمكن من إعادة الدخول
+        // ولكننا نضع علامة أن الجلسة غير نشطة مؤقتاً
+        localStorage.setItem(`inactive-${email}`, Date.now().toString());
+      }
+    }
+  });
+
+  // عند العودة إلى الصفحة (لحالة تحديث الصفحة)
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      const email = sessionStorage.getItem("loggedInUser");
+      const sessionId = sessionStorage.getItem("sessionId");
+      
+      if (email && sessionId) {
+        const inactiveTime = localStorage.getItem(`inactive-${email}`);
+        
+        // إذا كانت الجلسة غير نشطة لأقل من 5 دقائق، نعيد تفعيلها
+        if (inactiveTime && (Date.now() - parseInt(inactiveTime)) < 300000) {
+          localStorage.removeItem(`inactive-${email}`);
+          localStorage.setItem(`active-${email}`, sessionId);
+        }
+      }
+    }
+  });
+
+  // عند الخروج من التطبيق (لحالة إغلاق المتصفح)
+  window.addEventListener('pagehide', () => {
+    const email = sessionStorage.getItem("loggedInUser");
+    const sessionId = sessionStorage.getItem("sessionId");
+    
+    if (email && sessionId) {
+      const currentActive = localStorage.getItem(`active-${email}`);
+      
+      if (currentActive === sessionId) {
+        // لا نقوم بإزالة الجلسة النشطة هنا حتى يتمكن من إعادة الدخول
+        // ولكننا نضع علامة أن الجلسة غير نشطة مؤقتاً
+        localStorage.setItem(`inactive-${email}`, Date.now().toString());
+      }
+    }
+  });
+
+  // عرض رسالة الخطأ
+  function showError(message) {
+    errorMsg.textContent = message;
+    errorMsg.style.display = "block";
+    audioError.play();
   }
-});
 
-
-
- const cursor = document.getElementById('customCursor');
-
+  // إدارة المؤشر المخصص
+  const cursor = document.getElementById('customCursor');
   window.addEventListener('mousemove', e => {
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
   });
 
-  // مثال: تغيير حجم أو لون المؤشر عند الضغط على الماوس
   window.addEventListener('mousedown', () => {
     cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
     cursor.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
@@ -427,57 +487,7 @@ window.addEventListener("beforeunload", () => {
     cursor.style.transform = 'translate(-50%, -50%) scale(1)';
     cursor.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
   });
-
-
-
-
-  const audioSuccess = new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg");
-  const audioError = new Audio("https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg");
-
-  loginBtn.addEventListener("click", () => {
-  const email = emailInput.value.trim().toLowerCase();
-  const password = passwordInput.value;
-  errorMsg.style.display = "none";
-  errorMsg.textContent = "";
-
-  if (!email || !password) {
-    errorMsg.textContent = "يرجى ملء جميع الحقول!";
-    errorMsg.style.display = "block";
-    audioError.play();
-    return;
-  }
-
-  // التحقق من عدد مرات الاستخدام
-  const usageCount = parseInt(localStorage.getItem("usageCount_" + email)) || 0;
-  if (usageCount >= 30) {
-    errorMsg.textContent = "تم استخدام هذا الحساب مسبقًا. لا يمكن استخدامه مرة أخرى.";
-    errorMsg.style.display = "block";
-    audioError.play();
-    return;
-  }
-
-  const userFound = allowedUsers.find(u => u.email === email && u.password === password);
-
-  if (userFound) {
-    sessionStorage.setItem("loggedInUser", email);
-    localStorage.setItem("savedEmail", email);
-    localStorage.setItem("usageCount_" + email, usageCount + 1); // زيادة العداد
-    audioSuccess.play();
-    setTimeout(() => {
-      window.location.href = "index.html";
-    }, 700);
-  } else {
-    errorMsg.textContent = "البريد الإلكتروني أو كلمة المرور غير صحيحة!";
-    errorMsg.style.display = "block";
-    audioError.play();
-  }
-});
-
-
-
-
-  </script>
+</script>
 
 </body>
 </html>
-  
