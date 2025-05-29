@@ -360,7 +360,30 @@
     if (savedEmail) {
       emailInput.value = savedEmail;
     }
+
+    // تنظيف الجلسات المنتهية كل 5 دقائق
+    cleanupInactiveSessions();
   });
+
+  // تنظيف الجلسات غير النشطة
+  function cleanupInactiveSessions() {
+    const now = Date.now();
+    const inactiveThreshold = 5 * 60 * 1000; // 5 دقائق
+    
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      
+      if (key.startsWith("inactive-")) {
+        const inactiveTime = parseInt(localStorage.getItem(key));
+        
+        if (now - inactiveTime > inactiveThreshold) {
+          const email = key.replace("inactive-", "");
+          localStorage.removeItem(key);
+          localStorage.removeItem(`active-${email}`);
+        }
+      }
+    }
+  }
 
   // تسجيل الدخول
   loginBtn.addEventListener("click", () => {
@@ -392,11 +415,20 @@
     
     // إذا كان الحساب مستخدماً بالفعل في جلسة أخرى
     if (activeSession && activeSession !== currentSessionId) {
-      showError("هذا الحساب مستخدم حاليًا في نافذة أو جهاز آخر");
-      return;
+      // التحقق مما إذا كانت الجلسة الأخرى لا تزال نشطة
+      const inactiveTime = localStorage.getItem(`inactive-${email}`);
+      
+      if (!inactiveTime || (Date.now() - parseInt(inactiveTime)) > 300000) { // 5 دقائق
+        // الجلسة الأخرى منتهية، يمكننا المتابعة
+        localStorage.removeItem(`active-${email}`);
+        localStorage.removeItem(`inactive-${email}`);
+      } else {
+        showError("هذا الحساب مستخدم حاليًا في نافذة أو جهاز آخر");
+        return;
+      }
     }
 
-    // إنشاء جلسة جديدة
+    // إنشاء جلسة جديدة إذا لم تكن موجودة
     const sessionId = currentSessionId || generateSessionId();
     
     // حفظ بيانات الجلسة
@@ -405,6 +437,9 @@
     localStorage.setItem("savedEmail", email);
     localStorage.setItem(`active-${email}`, sessionId);
     localStorage.setItem("usageCount_" + email, usageCount + 1);
+    
+    // إزالة أي علامة غير نشطة لهذا الحساب
+    localStorage.removeItem(`inactive-${email}`);
     
     // تشغيل صوت النجاح والانتقال للصفحة الرئيسية
     audioSuccess.play();
@@ -423,8 +458,7 @@
       
       // إذا كان المستخدم لا يزال في نفس الجلسة
       if (currentActive === sessionId) {
-        // لا نقوم بإزالة الجلسة النشطة هنا حتى يتمكن من إعادة الدخول
-        // ولكننا نضع علامة أن الجلسة غير نشطة مؤقتاً
+        // وضع علامة أن الجلسة غير نشطة مؤقتاً
         localStorage.setItem(`inactive-${email}`, Date.now().toString());
       }
     }
@@ -443,6 +477,9 @@
         if (inactiveTime && (Date.now() - parseInt(inactiveTime)) < 300000) {
           localStorage.removeItem(`inactive-${email}`);
           localStorage.setItem(`active-${email}`, sessionId);
+        } else if (!inactiveTime) {
+          // إذا لم تكن هناك علامة غير نشطة، نعتبرها جلسة نشطة
+          localStorage.setItem(`active-${email}`, sessionId);
         }
       }
     }
@@ -457,8 +494,7 @@
       const currentActive = localStorage.getItem(`active-${email}`);
       
       if (currentActive === sessionId) {
-        // لا نقوم بإزالة الجلسة النشطة هنا حتى يتمكن من إعادة الدخول
-        // ولكننا نضع علامة أن الجلسة غير نشطة مؤقتاً
+        // وضع علامة أن الجلسة غير نشطة مؤقتاً
         localStorage.setItem(`inactive-${email}`, Date.now().toString());
       }
     }
@@ -487,6 +523,9 @@
     cursor.style.transform = 'translate(-50%, -50%) scale(1)';
     cursor.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
   });
+
+  // تنظيف دوري للجلسات غير النشطة
+  setInterval(cleanupInactiveSessions, 5 * 60 * 1000); // كل 5 دقائق
 </script>
 
 </body>
